@@ -1,0 +1,60 @@
+@import "fonts";
+
+body {
+  --max-width: 768px;
+  all: unset;
+  display: block;
+  background: black;
+  width: 100vw;
+  height: 100dvh;
+  color: white;
+  font-family: 'Ace Records', sans-serif;
+
+  main {
+    max-width: var(--max-width);
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+
+    .game {
+      flex: 1 0 auto;
+    }
+
+    .keyboard {
+      flex: 0 0 min(0.5 * var(--max-width), 50dvh);
+      table-layout: fixed;
+
+      td {
+        text-align: center;
+        vertical-align: center;
+        width: 33.33%;
+        position: relative;
+        font-size: min(40px, 5.2vh);
+        line-height: 1;
+
+        &:before {
+          content: '';
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          right: 2px;
+          bottom: 2px;
+          background: sienna;
+          opacity: 0.4;
+          cursor: pointer;
+          transition: opacity 0.2s ease;
+        }
+
+        &:hover {
+          color: lightyellow;
+
+          &:before {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+}
