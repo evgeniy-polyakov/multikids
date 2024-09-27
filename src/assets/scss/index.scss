@@ -11,7 +11,7 @@ body {
   font-family: 'Ace Records', sans-serif;
 
   main {
-    max-width: var(--max-width);
+    max-width: var(--max-width-px);
     display: flex;
     flex-flow: column nowrap;
     margin: 0 auto;
@@ -28,11 +28,12 @@ body {
 
       td {
         text-align: center;
-        vertical-align: center;
+        vertical-align: middle;
         width: 33.33%;
+        height: 25%;
         position: relative;
         font-size: min(40px, 5.2vh);
-        line-height: 1;
+        line-height: 0;
 
         &:before {
           content: '';
@@ -41,10 +42,25 @@ body {
           left: 2px;
           right: 2px;
           bottom: 2px;
-          background: sienna;
+          background: dimgray;
           opacity: 0.4;
           cursor: pointer;
           transition: opacity 0.2s ease;
+        }
+
+        &.code--1,
+        &.code--2 {
+          font-size: min(60px, 7.8vh);
+        }
+
+        &.code--1,
+        &.code--1:hover {
+          color: orangered;
+        }
+
+        &.code--2,
+        &.code--2:hover {
+          color: lawngreen;
         }
 
         &:hover {
