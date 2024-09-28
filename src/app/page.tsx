@@ -1,5 +1,5 @@
 import {Main} from "@/components/Main";
 
-export default function () {
+export default function Home () {
     return <Main/>;
 }

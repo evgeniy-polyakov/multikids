@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import '@/assets/scss/index.scss'
+import "@/assets/scss/index.scss"
 
 export const metadata: Metadata = {
     title: "Multi Kids",

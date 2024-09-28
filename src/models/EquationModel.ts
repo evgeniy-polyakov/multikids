@@ -30,7 +30,7 @@ export const Equations = [
         .map(it => [Operator.Multi, ...it] as EquationModel),
     ...DivisionTable.reduce((a, t) => [...a, ...t], [] as Number3[])
         .reduce((a, t) => {
-            const k = t.join('');
+            const k = t.join("");
             if (a.map[k]) return a;
             a.map[k] = true;
             a.result.push(t);

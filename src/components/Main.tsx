@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import {ActionCode, Keyboard} from "@/components/Keyboard";
 import {Game} from "@/components/Game";

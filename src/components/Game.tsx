@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import {EquationModel, Equations, Operator, ResultModel} from "@/models/EquationModel";
 import {Dispatch, useEffect, useState} from "react";
