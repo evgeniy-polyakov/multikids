@@ -6,11 +6,15 @@ import {useState} from "react";
 import {Score} from "@/components/Score";
 import {SFX} from "@/components/SFX";
 
-export function Main() {
+export function Main({basePath}: {
+    basePath: string
+}) {
 
     const [newEquation, setNewEquation] = useState(true);
     const [input, setInput] = useState(-1);
     const [score, setScore] = useState(0);
+
+    SFX.basePath = basePath;
 
     function onInput(value: number) {
         switch (value) {
