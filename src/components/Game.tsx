@@ -36,7 +36,7 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
                 const score = result === 0 ? equationModel.filter(i => typeof i === "number" && i > 0)[0] as number ?? 0 : result;
                 onScore(correct ? score : -score);
                 if (history.length % 4 === 0) {
-                    document.body.dataset.bg = `${Random.next(bgs)}`;
+                    document.body.dataset.bg = `${Random.cycle(bgs)}`;
                 }
                 SFX.play(correct ? "win" : "lose");
             }
