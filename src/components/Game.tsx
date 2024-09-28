@@ -1,8 +1,11 @@
-import {EquationModel, Equations, Operator} from "@/models/EquationModel";
+'use client'
+
+import {EquationModel, Equations, Operator, ResultModel} from "@/models/EquationModel";
 import {Dispatch, useEffect, useState} from "react";
 import {Random} from "@/core/Random";
 import {classList} from "@/components/classList";
 import {array} from "@/core/Collections";
+import {HistoryModel} from "@/models/HistoryModel";
 
 const bgs = Random.shuffle(array(i => i + 1, 4));
 
@@ -15,13 +18,19 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
 
     const [equationModel, setEquationModel] = useState<EquationModel>();
     const [answer, setAnswer] = useState(-1);
-    const [history, setHistory] = useState<[...EquationModel, correct: boolean][]>([]);
+    const [history, setHistory] = useState<ResultModel[]>([]);
+
+    useEffect(() => {
+        setHistory(HistoryModel.read());
+    }, []);
 
     useEffect(() => {
         if (newEquation) {
             if (equationModel) {
                 const correct = answer === equationModel[equationModel.length - 1];
-                setHistory([...history, [...equationModel, correct]]);
+                const historyItem = [...equationModel, correct] as ResultModel;
+                setHistory([...history, historyItem]);
+                HistoryModel.add(historyItem);
                 const result = equationModel[3];
                 const score = result === 0 ? equationModel.filter(i => typeof i === "number" && i > 0)[0] as number ?? 0 : result;
                 onScore(correct ? score : -score);

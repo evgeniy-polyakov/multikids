@@ -6,6 +6,7 @@ export enum Operator {
 }
 
 export type EquationModel = [o: Operator, a: number, b: number, c: number];
+export type ResultModel = [...EquationModel, result: boolean];
 
 type Number3 = [number, number, number];
 
