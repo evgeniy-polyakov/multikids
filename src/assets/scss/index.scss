@@ -27,7 +27,7 @@ body {
       display: flex;
       flex-flow: column nowrap;
       justify-content: flex-end;
-      //padding: 0 0 40px;
+      position: relative;
 
       .equation {
         font-size: min(90px, calc(100vw / 6.66));
@@ -42,6 +42,21 @@ body {
         --s: 4px;
         ---s: -4px;
         text-shadow: var(--c) var(--s) var(--s), var(--c) var(---s) var(---s), var(--c) var(--s) var(---s), var(--c) var(---s) var(--s);
+        
+        &.win,
+        &.lose {
+          --s: 2px;
+          ---s: -2px;
+          font-size: 40px;
+        }
+
+        &.win {
+          color: #74b750;
+        }
+
+        &.lose {
+          color: #bd1a1a;
+        }
 
         span {
           display: block;
@@ -60,6 +75,17 @@ body {
             left: 0;
           }
         }
+      }
+
+      .history {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        // todo
       }
     }
 

@@ -15,8 +15,10 @@ export function Main() {
                 setInput(-1);
                 break;
             case ActionCode.Enter:
-                setInput(-1);
-                setNewEquation(true);
+                if (input > -1) {
+                    setInput(-1);
+                    setNewEquation(true);
+                }
                 break;
             default:
                 if (input < 0) {
