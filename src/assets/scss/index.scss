@@ -1,17 +1,20 @@
 @import "fonts";
 
 body {
-  --max-width: 768px;
+  --max-width: 600px;
   all: unset;
   display: block;
   background: black;
   width: 100vw;
   height: 100dvh;
   color: white;
-  font-family: 'Ace Records', sans-serif;
+  font-family: 'Pixel Cowboy', sans-serif;
+  user-select: none;
+  background: url('../img/City4.png') no-repeat;
+  background-size: cover;
 
   main {
-    max-width: var(--max-width-px);
+    max-width: var(--max-width);
     display: flex;
     flex-flow: column nowrap;
     margin: 0 auto;
@@ -23,8 +26,9 @@ body {
     }
 
     .keyboard {
-      flex: 0 0 min(0.5 * var(--max-width), 50dvh);
+      flex: 0 0 max(0.4 * var(--max-width), 40dvh);
       table-layout: fixed;
+      border-collapse: collapse;
 
       td {
         text-align: center;
@@ -32,43 +36,40 @@ body {
         width: 33.33%;
         height: 25%;
         position: relative;
-        font-size: min(40px, 5.2vh);
+        font-size: min(55px, 10vh);
         line-height: 0;
+        color: #9a7a25;
+        cursor: pointer;
+        transition: color 0.2s ease;
 
-        &:before {
-          content: '';
+        .bg {
           position: absolute;
-          top: 2px;
-          left: 2px;
-          right: 2px;
-          bottom: 2px;
-          background: dimgray;
-          opacity: 0.4;
-          cursor: pointer;
-          transition: opacity 0.2s ease;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: url('../img/btn.png');
+          background-size: 100% 100%;
+          border-width: 4px;
+          border-style: solid;
+          border-image: url('../img/btn.png');
+          border-image-slice: 4 fill;
         }
 
-        &.code--1,
+        .text {
+          position: relative;
+        }
+
+        &.code--1 {
+          color: #bd1a1a;
+        }
+
         &.code--2 {
-          font-size: min(60px, 7.8vh);
-        }
-
-        &.code--1,
-        &.code--1:hover {
-          color: orangered;
-        }
-
-        &.code--2,
-        &.code--2:hover {
-          color: lawngreen;
+          color: #74b750;
         }
 
         &:hover {
-          color: lightyellow;
-
-          &:before {
-            opacity: 0.6;
-          }
+          color: #ffdf30;
         }
       }
     }

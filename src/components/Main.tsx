@@ -1,3 +1,5 @@
+'use client'
+
 import {Keyboard} from "@/components/Keyboard";
 import {Game} from "@/components/Game";
 

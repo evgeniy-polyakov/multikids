@@ -8,9 +8,13 @@ export function Keyboard({onClick}: {
 }) {
     return <table className="keyboard">
         <tbody>
-        {[[1, 2, 3], [4, 5, 6], [7, 8, 9], [ActionCode.Delete, 0, ActionCode.Enter]].map(row =>
-            <tr>{row.map(code =>
-                <td className={`code-${code}`}>{code === ActionCode.Enter ? "v" : code === ActionCode.Delete ? "x" : code}</td>)}</tr>
+        {[[1, 2, 3], [4, 5, 6], [7, 8, 9], [ActionCode.Delete, 0, ActionCode.Enter]].map((row, i) =>
+            <tr key={i}>{row.map((code, j) =>
+                <td key={j} className={`code-${code}`}>
+                    <span className="bg"></span>
+                    <span className="text">{code === ActionCode.Enter ? "V" : code === ActionCode.Delete ? "X" : code}</span>
+                </td>)}
+            </tr>
         )}
         </tbody>
     </table>
