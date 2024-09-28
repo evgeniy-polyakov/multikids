@@ -20,6 +20,7 @@ body {
     margin: 0 auto;
     width: 100%;
     height: 100%;
+    position: relative;
 
     .game {
       flex: 0 0 60%;
@@ -42,7 +43,7 @@ body {
         --s: 4px;
         ---s: -4px;
         text-shadow: var(--c) var(--s) var(--s), var(--c) var(---s) var(---s), var(--c) var(--s) var(---s), var(--c) var(---s) var(--s);
-        
+
         &.win,
         &.lose {
           --s: 2px;
@@ -136,6 +137,33 @@ body {
         &:hover {
           color: #ffdf30;
         }
+      }
+    }
+
+    .score {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: min(55px, 10vh);
+      padding: 0.2em 0.4em;
+
+      .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('../img/btn.png');
+        background-size: 100% 100%;
+        border-width: 4px;
+        border-style: solid;
+        border-image: url('../img/btn.png');
+        border-image-slice: 4 fill;
+      }
+
+      .text {
+        position: relative;
+        color: #9a7a25;
       }
     }
   }

@@ -3,11 +3,13 @@
 import {ActionCode, Keyboard} from "@/components/Keyboard";
 import {Game} from "@/components/Game";
 import {useState} from "react";
+import {Score} from "@/components/Score";
 
 export function Main() {
 
     const [newEquation, setNewEquation] = useState(true);
     const [input, setInput] = useState(-1);
+    const [score, setScore] = useState(0);
 
     function onInput(value: number) {
         switch (value) {
@@ -33,7 +35,8 @@ export function Main() {
     }
 
     return <main>
-        <Game newEquation={newEquation} setNewEquation={setNewEquation} input={input}/>
+        <Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} onScore={value => setScore(score + value)}/>
         <Keyboard onClick={onInput}/>
+        <Score value={score}/>
     </main>;
 }

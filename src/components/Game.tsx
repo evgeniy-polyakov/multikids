@@ -3,10 +3,11 @@ import {Dispatch, useEffect, useState} from "react";
 import {Random} from "@/core/Random";
 import {classList} from "@/components/classList";
 
-export function Game({newEquation, setNewEquation, input}: {
+export function Game({newEquation, setNewEquation, input, onScore}: {
     newEquation: boolean,
     setNewEquation: Dispatch<boolean>,
     input: number,
+    onScore: (value: number) => void,
 }) {
 
     const [equationModel, setEquationModel] = useState<EquationModel>();
@@ -16,7 +17,10 @@ export function Game({newEquation, setNewEquation, input}: {
     useEffect(() => {
         if (newEquation) {
             if (equationModel) {
-                setHistory([...history, [...equationModel, answer === equationModel[equationModel.length - 1]]]);
+                const correct = answer === equationModel[equationModel.length - 1];
+                setHistory([...history, [...equationModel, correct]]);
+                const score = Math.max(1, equationModel[3]);
+                onScore(correct ? score : -score);
             }
             setEquationModel(Random.item(Equations));
             setAnswer(-1);
