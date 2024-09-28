@@ -10,7 +10,7 @@ body {
   color: white;
   font-family: 'Pixel Cowboy', sans-serif;
   user-select: none;
-  background: url('../img/City4.png') no-repeat;
+  background: url('../img/City4.png') no-repeat center;
   background-size: cover;
 
   main {
@@ -22,11 +22,50 @@ body {
     height: 100%;
 
     .game {
-      flex: 1 0 auto;
+      flex: 0 0 60%;
+      height: 60%;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-end;
+      //padding: 0 0 40px;
+
+      .equation {
+        font-size: min(90px, calc(100vw / 6.66));
+        display: flex;
+        flex-flow: row nowrap;
+        line-height: 1;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1em;
+        color: #fff;
+        --c: #27231f;
+        --s: 4px;
+        ---s: -4px;
+        text-shadow: var(--c) var(--s) var(--s), var(--c) var(---s) var(---s), var(--c) var(--s) var(---s), var(--c) var(---s) var(--s);
+
+        span {
+          display: block;
+        }
+
+        > .input {
+          position: relative;
+
+          .value {
+            opacity: 0;
+          }
+
+          .input {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+        }
+      }
     }
 
     .keyboard {
-      flex: 0 0 max(0.4 * var(--max-width), 40dvh);
+      flex: 0 0 40%;
+      height: 40%;
       table-layout: fixed;
       border-collapse: collapse;
 
