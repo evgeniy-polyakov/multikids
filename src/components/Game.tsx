@@ -2,6 +2,9 @@ import {EquationModel, Equations, Operator} from "@/models/EquationModel";
 import {Dispatch, useEffect, useState} from "react";
 import {Random} from "@/core/Random";
 import {classList} from "@/components/classList";
+import {array} from "@/core/Collections";
+
+const bgs = Random.shuffle(array(i => i + 1, 4));
 
 export function Game({newEquation, setNewEquation, input, onScore}: {
     newEquation: boolean,
@@ -19,8 +22,12 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
             if (equationModel) {
                 const correct = answer === equationModel[equationModel.length - 1];
                 setHistory([...history, [...equationModel, correct]]);
-                const score = Math.max(1, equationModel[3]);
+                const result = equationModel[3];
+                const score = result === 0 ? equationModel.filter(i => typeof i === "number" && i > 0)[0] as number ?? 0 : result;
                 onScore(correct ? score : -score);
+                if (history.length % 4 === 0) {
+                    document.body.dataset.bg = `${Random.next(bgs)}`;
+                }
             }
             setEquationModel(Random.item(Equations));
             setAnswer(-1);

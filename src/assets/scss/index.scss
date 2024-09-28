@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import "fonts";
 
 body {
@@ -10,8 +11,28 @@ body {
   color: white;
   font-family: 'Pixel Cowboy', sans-serif;
   user-select: none;
-  background: url('../img/City4.png') no-repeat center;
+  background: url('../img/City#{random(4)}.png') no-repeat center;
   background-size: cover;
+
+  @for $i from 1 through 4 {
+    &[data-bg="#{$i}"] {
+      background-image: url('../img/City#{$i}.png');
+    }
+  }
+
+  @mixin button-bg() {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../img/btn.png');
+    background-size: 100% 100%;
+    border-width: 4px;
+    border-style: solid;
+    border-image: url('../img/btn.png');
+    border-image-slice: 4 fill;
+  }
 
   main {
     max-width: var(--max-width);
@@ -109,17 +130,7 @@ body {
         transition: color 0.2s ease;
 
         .bg {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: url('../img/btn.png');
-          background-size: 100% 100%;
-          border-width: 4px;
-          border-style: solid;
-          border-image: url('../img/btn.png');
-          border-image-slice: 4 fill;
+          @include button-bg();
         }
 
         .text {
@@ -148,17 +159,7 @@ body {
       padding: 0.2em 0.4em;
 
       .bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('../img/btn.png');
-        background-size: 100% 100%;
-        border-width: 4px;
-        border-style: solid;
-        border-image: url('../img/btn.png');
-        border-image-slice: 4 fill;
+        @include button-bg();
       }
 
       .text {
