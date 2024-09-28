@@ -4,6 +4,7 @@ import {ActionCode, Keyboard} from "@/components/Keyboard";
 import {Game} from "@/components/Game";
 import {useState} from "react";
 import {Score} from "@/components/Score";
+import {SFX} from "@/components/SFX";
 
 export function Main() {
 
@@ -15,6 +16,7 @@ export function Main() {
         switch (value) {
             case ActionCode.Delete:
                 setInput(-1);
+                SFX.play("clear");
                 break;
             case ActionCode.Enter:
                 if (input > -1) {
@@ -23,6 +25,7 @@ export function Main() {
                 }
                 break;
             default:
+                SFX.play("shot");
                 if (input < 0) {
                     setInput(value);
                 } else {

@@ -6,6 +6,7 @@ import {Random} from "@/core/Random";
 import {classList} from "@/components/classList";
 import {array} from "@/core/Collections";
 import {HistoryModel} from "@/models/HistoryModel";
+import {SFX} from "@/components/SFX";
 
 const bgs = Random.shuffle(array(i => i + 1, 4));
 
@@ -37,6 +38,7 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
                 if (history.length % 4 === 0) {
                     document.body.dataset.bg = `${Random.next(bgs)}`;
                 }
+                SFX.play(correct ? "win" : "lose");
             }
             setEquationModel(Random.item(Equations));
             setAnswer(-1);

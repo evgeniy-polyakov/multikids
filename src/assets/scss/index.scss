@@ -166,6 +166,10 @@ body {
         position: relative;
         color: #9a7a25;
       }
+
+      &.negative .text {
+        color: #bd1a1a;
+      }
     }
   }
 }
