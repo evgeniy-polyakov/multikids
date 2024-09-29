@@ -146,8 +146,10 @@ body {
           color: #74b750;
         }
 
-        &:hover {
-          color: #ffdf30;
+        @media (hover: hover) {
+          &:hover {
+            color: #ffdf30;
+          }
         }
       }
     }
