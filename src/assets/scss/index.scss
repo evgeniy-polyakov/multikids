@@ -11,7 +11,7 @@ body {
   color: white;
   font-family: 'Pixel Cowboy', sans-serif;
   user-select: none;
-  background: url('../img/City1.png') no-repeat center, url('../img/City2.png') no-repeat center, url('../img/City3.png') no-repeat center, url('../img/City4.png') no-repeat center;
+  background: url('../img/City1.png') no-repeat center;
   background-size: cover;
 
   @for $i from 1 through 4 {

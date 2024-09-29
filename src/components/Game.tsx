@@ -8,8 +8,6 @@ import {array} from "@/core/Collections";
 import {HistoryModel} from "@/models/HistoryModel";
 import {SFX} from "@/components/SFX";
 
-const bgs = Random.shuffle(array(i => i + 1, 4));
-
 export function Game({newEquation, setNewEquation, input, onScore}: {
     newEquation: boolean,
     setNewEquation: Dispatch<boolean>,
@@ -35,9 +33,6 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
                 const result = equationModel[3];
                 const score = result === 0 ? equationModel.filter(i => typeof i === "number" && i > 0)[0] as number ?? 0 : result;
                 onScore(correct ? score : -score);
-                if (history.length % 4 === 0) {
-                    document.body.dataset.bg = `${Random.cycle(bgs)}`;
-                }
                 SFX.play(correct ? "win" : "lose");
             }
             setEquationModel(Random.item(Equations));
