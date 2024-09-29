@@ -2,9 +2,10 @@
 
 import {ActionCode, Keyboard} from "@/components/Keyboard";
 import {Game} from "@/components/Game";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Score} from "@/components/Score";
 import {SFX} from "@/components/SFX";
+import {HistoryModel} from "@/models/HistoryModel";
 
 export function Main({basePath}: {
     basePath: string
@@ -13,8 +14,16 @@ export function Main({basePath}: {
     const [newEquation, setNewEquation] = useState(true);
     const [input, setInput] = useState(-1);
     const [score, setScore] = useState(0);
+    const [init, setInit] = useState(false);
 
-    SFX.basePath = basePath;
+    useEffect(() => {
+        if (!init) {
+            SFX.basePath = basePath;
+            HistoryModel.read();
+            setScore(HistoryModel.getScore());
+            setInit(true);
+        }
+    }, []);
 
     function onInput(value: number) {
         switch (value) {
@@ -42,8 +51,11 @@ export function Main({basePath}: {
     }
 
     return <main>
-        <Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} onScore={value => setScore(score + value)}/>
-        <Keyboard onClick={onInput}/>
-        <Score value={score}/>
+        <Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} onScore={value => {
+            setScore(score + value);
+            HistoryModel.setScore(score + value);
+        }}/>
+        {init && <Keyboard onClick={onInput}/>}
+        {init && <Score value={score}/>}
     </main>;
 }

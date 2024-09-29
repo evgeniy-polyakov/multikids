@@ -19,7 +19,7 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
     const [history, setHistory] = useState<ResultModel[]>([]);
 
     useEffect(() => {
-        setHistory(HistoryModel.read());
+        setHistory(HistoryModel.getHistory());
     }, []);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
             const correct = answer === equationModel[equationModel.length - 1];
             const historyItem = [...equationModel, correct] as ResultModel;
             setHistory([...history, historyItem]);
-            HistoryModel.add(historyItem);
+            HistoryModel.addHistory(historyItem);
             const result = equationModel[3];
             const score = result === 0 ? equationModel.filter(i => typeof i === "number" && i > 0)[0] as number ?? 0 : result;
             onScore(correct ? score : -score);
