@@ -19,6 +19,7 @@ export function Main({basePath}: {
     useEffect(() => {
         if (!init) {
             SFX.basePath = basePath;
+            SFX.load("clear", "lose", "shot", "win");
             HistoryModel.read();
             setScore(HistoryModel.getScore());
             setInit(true);
