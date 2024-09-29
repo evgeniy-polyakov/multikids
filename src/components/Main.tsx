@@ -24,7 +24,7 @@ export function Main({basePath}: {
             setScore(HistoryModel.getScore());
             setInit(true);
         }
-    }, []);
+    }, [init]);
 
     function onInput(value: number) {
         switch (value) {
