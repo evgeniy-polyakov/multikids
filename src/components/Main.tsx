@@ -11,7 +11,7 @@ export function Main({basePath}: {
     basePath: string
 }) {
 
-    const [newEquation, setNewEquation] = useState(true);
+    const [newEquation, setNewEquation] = useState(false);
     const [input, setInput] = useState(-1);
     const [score, setScore] = useState(0);
     const [init, setInit] = useState(false);
@@ -23,6 +23,7 @@ export function Main({basePath}: {
             HistoryModel.read();
             setScore(HistoryModel.getScore());
             setInit(true);
+            setNewEquation(true);
         }
     }, [init]);
 
@@ -56,7 +57,7 @@ export function Main({basePath}: {
             setScore(score + value);
             HistoryModel.setScore(score + value);
         }}/>
-        {init && <Keyboard onClick={onInput}/>}
+        <Keyboard onClick={onInput}/>
         {init && <Score value={score}/>}
     </main>;
 }

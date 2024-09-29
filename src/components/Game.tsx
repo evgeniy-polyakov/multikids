@@ -19,11 +19,10 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
     const [history, setHistory] = useState<ResultModel[]>([]);
 
     useEffect(() => {
-        setHistory(HistoryModel.getHistory());
-    }, []);
-
-    useEffect(() => {
         if (newEquation) {
+            if (!equationModel) {
+                setHistory(HistoryModel.getHistory());
+            }
             addNewEquation();
         }
     }, [newEquation]);
