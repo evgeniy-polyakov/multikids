@@ -4,7 +4,6 @@ import {EquationModel, Equations, Operator, ResultModel} from "@/models/Equation
 import {Dispatch, useEffect, useState} from "react";
 import {Random} from "@/core/Random";
 import {classList} from "@/components/classList";
-import {array} from "@/core/Collections";
 import {HistoryModel} from "@/models/HistoryModel";
 import {SFX} from "@/components/SFX";
 
@@ -25,19 +24,7 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
 
     useEffect(() => {
         if (newEquation) {
-            if (equationModel) {
-                const correct = answer === equationModel[equationModel.length - 1];
-                const historyItem = [...equationModel, correct] as ResultModel;
-                setHistory([...history, historyItem]);
-                HistoryModel.add(historyItem);
-                const result = equationModel[3];
-                const score = result === 0 ? equationModel.filter(i => typeof i === "number" && i > 0)[0] as number ?? 0 : result;
-                onScore(correct ? score : -score);
-                SFX.play(correct ? "win" : "lose");
-            }
-            setEquationModel(Random.item(Equations));
-            setAnswer(-1);
-            setNewEquation(false);
+            addNewEquation();
         }
     }, [newEquation]);
 
@@ -46,6 +33,22 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
             setAnswer(input);
         }
     }, [input]);
+
+    function addNewEquation() {
+        if (equationModel) {
+            const correct = answer === equationModel[equationModel.length - 1];
+            const historyItem = [...equationModel, correct] as ResultModel;
+            setHistory([...history, historyItem]);
+            HistoryModel.add(historyItem);
+            const result = equationModel[3];
+            const score = result === 0 ? equationModel.filter(i => typeof i === "number" && i > 0)[0] as number ?? 0 : result;
+            onScore(correct ? score : -score);
+            SFX.play(correct ? "win" : "lose");
+        }
+        setEquationModel(Random.item(Equations));
+        setAnswer(-1);
+        setNewEquation(false);
+    }
 
     return <div className="game">
         {history.map(([o, a, b, c, r], i) =>
