@@ -21,7 +21,7 @@ export function Main({basePath}: {
         if (!init) {
             SFX.basePath = basePath;
             SFX.load("clear", "lose", "shot", "win");
-            SFX.loop("music", 0.2);
+            SFX.loop("music");
             document.addEventListener("visibilitychange", () => {
                 Howler.mute(document.hidden);
             }, false);

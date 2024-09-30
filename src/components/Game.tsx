@@ -48,7 +48,7 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
             if (correct) {
                 SFX.play("win");
             } else {
-                SFX.play("lose", 0.4);
+                SFX.play("lose", 0.6);
             }
         }
         const failures = HistoryModel.getFailures();
