@@ -11,28 +11,32 @@ body {
   color: white;
   font-family: 'Pixel Cowboy', sans-serif;
   user-select: none;
-  background: url('../img/City1.png') no-repeat center;
+  background: url('../img/city-1.png') no-repeat center;
   background-size: cover;
 
   @for $i from 1 through 4 {
     &[data-bg="#{$i}"] {
-      background-image: url('../img/City#{$i}.png');
+      background-image: url('../img/city-#{$i}.png');
     }
   }
 
-  @mixin button-bg() {
+  @mixin nineSliceBg($src, $border) {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../img/btn.png');
+    background: url($src);
     background-size: 100% 100%;
-    border-width: 4px;
+    border-width: #{$border}px;
     border-style: solid;
-    border-image: url('../img/btn.png');
-    border-image-slice: 4 fill;
+    border-image: url($src);
+    border-image-slice: $border fill;
     opacity: 0.8;
+  }
+
+  @mixin button-bg() {
+    @include nineSliceBg('../img/btn.png', 4);
   }
 
   main {
@@ -160,18 +164,74 @@ body {
       left: 0;
       font-size: min(55px, 10vh);
       padding: 0.2em 0.4em;
+      cursor: pointer;
 
       .bg {
         @include button-bg();
       }
 
-      .text {
-        position: relative;
+      > div {
         color: #9a7a25;
+        transition: color 0.2s ease;
       }
 
-      &.negative .text {
+      .text {
+        position: relative;
+        pointer-events: none;
+      }
+
+      &.negative > div {
         color: #bd1a1a;
+      }
+
+      @media (hover: hover) {
+        > div:hover {
+          color: #ffdf30;
+        }
+      }
+    }
+
+    .inventory {
+      --width: min(100px, 20vh);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      display: flex;
+      flex-flow: row wrap;
+      width: calc(2 * var(--width));
+
+      li {
+        display: block;
+        margin: 0;
+        padding: 0;
+        width: var(--width);
+        height: var(--width);
+        position: relative;
+        background: #000;
+
+        .bg {
+          @include nineSliceBg('../img/btn.png', 4);
+        }
+
+        .icon {
+          position: absolute;
+          top: 4px;
+          left: 4px;
+          right: 4px;
+          bottom: 4px;
+          background-size: auto 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+
+        @for $i from 1 through 4 {
+          &[data-item="#{$i}"] .icon {
+            background-image: url('../img/city-icon-#{$i}.png');
+          }
+        }
       }
     }
   }
