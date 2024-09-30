@@ -16,8 +16,22 @@ export class SFX {
         }
     }
 
-    static play(name: string) {
+    static play(name: string, volume = 1) {
         this.load(name);
-        this.cache[name]?.play();
+        const howl = this.cache[name];
+        if (howl) {
+            howl.volume(volume);
+            howl.play();
+        }
+    }
+
+    static loop(name: string, volume = 1) {
+        this.load(name);
+        const howl = this.cache[name];
+        if (howl) {
+            howl.volume(volume);
+            howl.loop(true);
+            howl.play();
+        }
     }
 }

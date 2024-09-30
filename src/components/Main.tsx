@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {Score} from "@/components/Score";
 import {SFX} from "@/components/SFX";
 import {HistoryModel} from "@/models/HistoryModel";
+import {Howler} from "howler";
 
 export function Main({basePath}: {
     basePath: string
@@ -20,6 +21,10 @@ export function Main({basePath}: {
         if (!init) {
             SFX.basePath = basePath;
             SFX.load("clear", "lose", "shot", "win");
+            SFX.loop("music", 0.2);
+            document.addEventListener("visibilitychange", () => {
+                Howler.mute(document.hidden);
+            }, false);
             HistoryModel.read();
             setScore(HistoryModel.getScore());
             setInit(true);

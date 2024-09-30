@@ -45,7 +45,11 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
             const c = equationStruct[2];
             const score = c === 0 ? b === 0 ? a : b : c;
             onScore(correct ? score : -score);
-            SFX.play(correct ? "win" : "lose");
+            if (correct) {
+                SFX.play("win");
+            } else {
+                SFX.play("lose", 0.4);
+            }
         }
         const failures = HistoryModel.getFailures();
         if (failures.length > 0 && Random.bool()) {
