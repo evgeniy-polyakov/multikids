@@ -16,15 +16,18 @@ export function Score({value}: {
             <span className="bg"></span>
             <span className="text">${value}</span>
         </div>
-        {inventoryOpen && <Inventory/>}
+        {inventoryOpen && <Inventory onClick={i => {
+            document.body.dataset.bg = `${i}`;
+            setInventoryOpen(false);
+        }}/>}
     </div>
 }
 
-function Inventory() {
+function Inventory({onClick}: {
+    onClick: (item: number) => void
+}) {
     return <ul className="inventory">
-        {[1, 2, 3, 4].map(i => <li key={i} data-item={i} onClick={() => {
-            document.body.dataset.bg = `${i}`;
-        }}>
+        {[1, 2, 3, 4].map(i => <li key={i} data-item={i} onClick={() => onClick(i)}>
             <span className="bg"></span>
             <span className="icon"></span>
         </li>)}
