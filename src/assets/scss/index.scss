@@ -95,20 +95,14 @@ body {
           .input {
             position: absolute;
             top: 0;
+            right: 0;
+          }
+
+          &:last-child .input {
             left: 0;
+            right: unset;
           }
         }
-      }
-
-      .history {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: center;
-        // todo
       }
     }
 

@@ -56,11 +56,11 @@ export function Main({basePath}: {
     console.log(Equations);
 
     return <main>
-        {/*<Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} onScore={value => {*/}
-        {/*    setScore(score + value);*/}
-        {/*    HistoryModel.setScore(score + value);*/}
-        {/*}}/>*/}
-        {/*<Keyboard onClick={onInput}/>*/}
-        {/*{init && <Score value={score}/>}*/}
+        <Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} onScore={value => {
+            setScore(score + value);
+            HistoryModel.setScore(score + value);
+        }}/>
+        <Keyboard onClick={onInput}/>
+        {init && <Score value={score}/>}
     </main>;
 }

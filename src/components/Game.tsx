@@ -1,6 +1,6 @@
 "use client"
 
-import {EquationModel, Equations, Operator, AnswerModel} from "@/models/EquationModel";
+import {AnswerModel, EquationModel, Equations, Operator, parseEquation} from "@/models/EquationModel";
 import {Dispatch, useEffect, useState} from "react";
 import {Random} from "@/core/Random";
 import {classList} from "@/components/classList";
@@ -35,28 +35,31 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
 
     function addNewEquation() {
         if (equationModel) {
-            const correct = answer === equationModel[equationModel.length - 1];
-            const historyItem = [...equationModel, correct] as AnswerModel;
-            setHistory([...history, historyItem]);
-            HistoryModel.addHistory(historyItem);
-            const result = equationModel[3];
-            const score = result === 0 ? equationModel.filter(i => typeof i === "number" && i > 0)[0] as number ?? 0 : result;
+            const equationStruct = parseEquation(equationModel);
+            const correct = answer === equationStruct[equationStruct.question];
+            const answerModel: AnswerModel = [equationModel, answer, correct];
+            setHistory([...history, answerModel]);
+            HistoryModel.addHistory(answerModel);
+            const a = equationStruct[2];
+            const b = equationStruct[2];
+            const c = equationStruct[2];
+            const score = c === 0 ? b === 0 ? a : b : c;
             onScore(correct ? score : -score);
             SFX.play(correct ? "win" : "lose");
         }
         const failures = HistoryModel.getFailures();
         if (failures.length > 0 && Random.bool()) {
-            setEquationModel([...Random.item(failures)]);
+            setEquationModel(Random.item(failures));
         } else {
-            setEquationModel([...Random.item(Equations)]);
+            setEquationModel(Random.item(Equations));
         }
         setAnswer(-1);
         setNewEquation(false);
     }
 
     return <div className="game">
-        {history.map(([o, a, b, c, r], i) =>
-            <Equation key={i} model={[o, a, b, c]} input={c} correct={r}/>)}
+        {history.map(([e, a, r], i) =>
+            <Equation key={i} model={e} input={a} correct={r}/>)}
         {equationModel && <Equation model={equationModel} input={input}/>}
     </div>
 }
@@ -66,13 +69,21 @@ function Equation({model, input, correct}: {
     input: number,
     correct?: boolean,
 }) {
-    const [action, a, b, c] = model;
+    const equationStruct = parseEquation(model);
+
+    function getMember(index: 0 | 1 | 2) {
+        if (correct === undefined && equationStruct.question === index) {
+            return <Input value={equationStruct[index]} input={input}/>;
+        }
+        return <span>{equationStruct[index]}</span>;
+    }
+
     return <article className={classList("equation", correct === undefined ? "none" : correct ? "win" : "lose")}>
-        <span>{a}</span>&nbsp;
-        <span>{action === Operator.Multi ? "*" : ":"}</span>&nbsp;
-        <span>{b}</span>&nbsp;
+        {getMember(0)}&nbsp;
+        <span>{equationStruct.operator === Operator.Multi ? "*" : ":"}</span>&nbsp;
+        {getMember(1)}&nbsp;
         <span>=</span>&nbsp;
-        <Input value={c} input={input}/>
+        {getMember(2)}
     </article>
 }
 

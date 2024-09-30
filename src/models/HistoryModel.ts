@@ -1,10 +1,13 @@
-import {equalEquations, EquationModel, AnswerModel} from "@/models/EquationModel";
+import {AnswerModel, EquationModel} from "@/models/EquationModel";
+
+type HistoryEntry = [date: number, ...AnswerModel];
 
 export class HistoryModel {
 
+    private static readonly dataKey = "multikids-data1";
     private static init = false;
     private static score = 0;
-    private static history: [date: number, ...AnswerModel][] = [];
+    private static history: HistoryEntry[] = [];
     private static failures: EquationModel[] = [];
     private static modified = false;
 
@@ -12,16 +15,15 @@ export class HistoryModel {
         if (!this.init) {
             return;
         }
-        this.history?.push([new Date().getTime(), ...value]);
-        while (this.history && this.history.length > 1000) {
+        this.history.push([new Date().getTime(), ...value]);
+        while (this.history.length > 1000) {
             this.history.shift();
         }
-        const result = value[4];
-        const equation = value.slice(0, 4) as EquationModel;
+        const [equation, , result] = value;
         if (result) {
-            this.failures = this.failures.filter(it => !equalEquations(it, equation));
+            this.failures = this.failures.filter(it => it !== equation);
         } else {
-            if (!this.failures.some(it => equalEquations(it, equation))) {
+            if (this.failures.indexOf(equation) < 0) {
                 this.failures.push(equation);
                 while (this.failures.length > 100) {
                     this.failures.shift();
@@ -43,7 +45,7 @@ export class HistoryModel {
         if (!this.init) {
             this.init = true;
             try {
-                const {score, history, failures} = JSON.parse(localStorage.getItem("multikids-data") ?? "{}");
+                const {score, history, failures} = JSON.parse(localStorage.getItem(this.dataKey) ?? "{}");
                 this.score = !isNaN(parseInt(score)) ? parseInt(score) : 0;
                 this.history = Array.isArray(history) ? history : [];
                 this.failures = Array.isArray(failures) ? failures : [];
@@ -56,7 +58,7 @@ export class HistoryModel {
     }
 
     static write() {
-        localStorage.setItem("multikids-data", JSON.stringify({
+        localStorage.setItem(this.dataKey, JSON.stringify({
             score: this.score,
             history: this.history,
             failures: this.failures,

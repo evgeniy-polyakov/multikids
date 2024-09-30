@@ -54,9 +54,32 @@ export const Equations = [
         .reduce((a, t) => number3toEquation(a, t, Operator.Div), [] as EquationModel[])
 ];
 
-export function equalEquations(eq1: EquationModel, eq2: EquationModel) {
-    return eq1[0] === eq2[0] &&
-        eq1[1] === eq2[1] &&
-        eq1[2] === eq2[2] &&
-        eq1[3] === eq2[3];
+export type EquationStruct = {
+    operator: Operator,
+    question: 0 | 1 | 2,
+    [0]: number,
+    [1]: number,
+    [2]: number,
+};
+
+export function parseEquation(equation: EquationModel): EquationStruct {
+    const e = /^(\d+\??)([*/])(\d+\??)=(\d+\??)$/.exec(equation);
+    if (!e) {
+        return {
+            operator: Operator.Multi,
+            question: 0,
+            [0]: 0, [1]: 0, [2]: 0,
+        };
+    }
+    return {
+        operator: e[2] as Operator,
+        question: e[1].lastIndexOf("?") > 0 ? 0 : e[3].lastIndexOf("?") > 0 ? 1 : 2,
+        [0]: parseInt(e[1].replace("?", "")),
+        [1]: parseInt(e[3].replace("?", "")),
+        [2]: parseInt(e[4].replace("?", "")),
+    };
+}
+
+export function stringifyEquation(e: EquationStruct): EquationModel {
+    return `${e[0]}${e.question === 0 ? "?" : ""}${e.operator}${e[1]}${e.question === 1 ? "?" : ""}=${e[2]}${e.question === 2 ? "?" : ""}` as EquationModel;
 }
