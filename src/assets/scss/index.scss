@@ -165,6 +165,7 @@ body {
       font-size: min(55px, 10vh);
       padding: 0.2em 0.4em;
       cursor: pointer;
+      pointer-events: none;
 
       .bg {
         @include button-bg();
