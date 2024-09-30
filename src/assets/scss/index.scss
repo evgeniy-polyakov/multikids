@@ -32,7 +32,6 @@ body {
     border-style: solid;
     border-image: url($src);
     border-image-slice: $border fill;
-    opacity: 0.8;
   }
 
   @mixin button-bg() {
