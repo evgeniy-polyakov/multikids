@@ -30,8 +30,10 @@ export const DivisionTable = MultiplicationTable.map(it => it.reduce((a, t) => {
 
 function number3toEquation(a: EquationModel[], t: Number3, o: Operator) {
     const [p, q, r] = t;
-    a.push(`${p}?${o}${q}=${r}`);
-    a.push(`${p}${o}${q}?=${r}`);
+    if (r !== 0) {
+        a.push(`${p}?${o}${q}=${r}`);
+        a.push(`${p}${o}${q}?=${r}`);
+    }
     a.push(`${p}${o}${q}=${r}?`);
     return a;
 }
