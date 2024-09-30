@@ -44,7 +44,12 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
             onScore(correct ? score : -score);
             SFX.play(correct ? "win" : "lose");
         }
-        setEquationModel(Random.item(Equations));
+        const failures = HistoryModel.getFailures();
+        if (failures.length > 0 && Random.bool()) {
+            setEquationModel([...Random.item(failures)]);
+        } else {
+            setEquationModel([...Random.item(Equations)]);
+        }
         setAnswer(-1);
         setNewEquation(false);
     }

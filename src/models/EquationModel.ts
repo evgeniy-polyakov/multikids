@@ -46,3 +46,10 @@ export const Equations = [
     }
     return o1 === Operator.Multi ? -1 : 1;
 });
+
+export function equalEquations(eq1: EquationModel, eq2: EquationModel) {
+    return eq1[0] === eq2[0] &&
+        eq1[1] === eq2[1] &&
+        eq1[2] === eq2[2] &&
+        eq1[3] === eq2[3];
+}
