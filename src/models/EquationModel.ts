@@ -5,8 +5,11 @@ export enum Operator {
     Div = "/",
 }
 
-export type EquationModel = [o: Operator, a: number, b: number, c: number];
-export type ResultModel = [...EquationModel, result: boolean];
+export type EquationModel =
+    `${number}?${Operator}${number}=${number}` |
+    `${number}${Operator}${number}?=${number}` |
+    `${number}${Operator}${number}=${number}?`;
+export type AnswerModel = [EquationModel, answer: number, result: boolean];
 
 type Number3 = [number, number, number];
 
@@ -25,9 +28,18 @@ export const DivisionTable = MultiplicationTable.map(it => it.reduce((a, t) => {
     return a;
 }, [] as Number3[]));
 
+function number3toEquation(a: EquationModel[], t: Number3, o: Operator) {
+    const [p, q, r] = t;
+    a.push(`${p}?${o}${q}=${r}`);
+    a.push(`${p}${o}${q}?=${r}`);
+    a.push(`${p}${o}${q}=${r}?`);
+    return a;
+}
+
 export const Equations = [
     ...MultiplicationTable.reduce((a, t) => [...a, ...t], [] as Number3[])
-        .map(it => [Operator.Multi, ...it] as EquationModel),
+        .sort((a, b) => a[0] === b[0] ? a[1] - b[1] : a[0] - b[0])
+        .reduce((a, t) => number3toEquation(a, t, Operator.Multi), [] as EquationModel[]),
     ...DivisionTable.reduce((a, t) => [...a, ...t], [] as Number3[])
         .reduce((a, t) => {
             const k = t.join("");
@@ -36,16 +48,9 @@ export const Equations = [
             a.result.push(t);
             return a;
         }, {result: [] as Number3[], map: {} as Record<string, boolean>}).result
-        .map(it => [Operator.Div, ...it] as EquationModel)
-].sort(([o1, a1, b1, c1], [o2, a2, b2, c2]) => {
-    if (o1 === o2) {
-        if (a1 === a2) {
-            return b1 - b2;
-        }
-        return a1 - a2;
-    }
-    return o1 === Operator.Multi ? -1 : 1;
-});
+        .sort((a, b) => a[0] === b[0] ? a[1] - b[1] : a[0] - b[0])
+        .reduce((a, t) => number3toEquation(a, t, Operator.Div), [] as EquationModel[])
+];
 
 export function equalEquations(eq1: EquationModel, eq2: EquationModel) {
     return eq1[0] === eq2[0] &&

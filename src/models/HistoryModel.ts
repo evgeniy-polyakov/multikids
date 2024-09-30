@@ -1,14 +1,14 @@
-import {equalEquations, EquationModel, ResultModel} from "@/models/EquationModel";
+import {equalEquations, EquationModel, AnswerModel} from "@/models/EquationModel";
 
 export class HistoryModel {
 
     private static init = false;
     private static score = 0;
-    private static history: [date: number, ...ResultModel][] = [];
+    private static history: [date: number, ...AnswerModel][] = [];
     private static failures: EquationModel[] = [];
     private static modified = false;
 
-    static addHistory(value: ResultModel) {
+    static addHistory(value: AnswerModel) {
         if (!this.init) {
             return;
         }
@@ -64,7 +64,7 @@ export class HistoryModel {
     }
 
     static getHistory() {
-        return this.history?.map(it => it.slice(1) as ResultModel) ?? [];
+        return this.history?.map(it => it.slice(1) as AnswerModel) ?? [];
     }
 
     static getScore() {

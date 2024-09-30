@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {Score} from "@/components/Score";
 import {SFX} from "@/components/SFX";
 import {HistoryModel} from "@/models/HistoryModel";
+import {Equations} from "@/models/EquationModel";
 
 export function Main({basePath}: {
     basePath: string
@@ -52,12 +53,14 @@ export function Main({basePath}: {
         }
     }
 
+    console.log(Equations);
+
     return <main>
-        <Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} onScore={value => {
-            setScore(score + value);
-            HistoryModel.setScore(score + value);
-        }}/>
-        <Keyboard onClick={onInput}/>
-        {init && <Score value={score}/>}
+        {/*<Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} onScore={value => {*/}
+        {/*    setScore(score + value);*/}
+        {/*    HistoryModel.setScore(score + value);*/}
+        {/*}}/>*/}
+        {/*<Keyboard onClick={onInput}/>*/}
+        {/*{init && <Score value={score}/>}*/}
     </main>;
 }

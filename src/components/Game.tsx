@@ -1,6 +1,6 @@
 "use client"
 
-import {EquationModel, Equations, Operator, ResultModel} from "@/models/EquationModel";
+import {EquationModel, Equations, Operator, AnswerModel} from "@/models/EquationModel";
 import {Dispatch, useEffect, useState} from "react";
 import {Random} from "@/core/Random";
 import {classList} from "@/components/classList";
@@ -16,7 +16,7 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
 
     const [equationModel, setEquationModel] = useState<EquationModel>();
     const [answer, setAnswer] = useState(-1);
-    const [history, setHistory] = useState<ResultModel[]>([]);
+    const [history, setHistory] = useState<AnswerModel[]>([]);
 
     useEffect(() => {
         if (newEquation) {
@@ -36,7 +36,7 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
     function addNewEquation() {
         if (equationModel) {
             const correct = answer === equationModel[equationModel.length - 1];
-            const historyItem = [...equationModel, correct] as ResultModel;
+            const historyItem = [...equationModel, correct] as AnswerModel;
             setHistory([...history, historyItem]);
             HistoryModel.addHistory(historyItem);
             const result = equationModel[3];
