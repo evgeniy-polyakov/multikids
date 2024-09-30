@@ -72,7 +72,7 @@ function Equation({model, input, correct}: {
     const equationStruct = parseEquation(model);
 
     function getMember(index: 0 | 1 | 2) {
-        if (correct === undefined && equationStruct.question === index) {
+        if (equationStruct.question === index) {
             return <Input value={equationStruct[index]} input={input}/>;
         }
         return <span>{equationStruct[index]}</span>;

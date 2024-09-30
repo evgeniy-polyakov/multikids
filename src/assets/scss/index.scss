@@ -103,6 +103,12 @@ body {
             right: unset;
           }
         }
+
+        &.lose > .input {
+          .input {
+            text-decoration: underline;
+          }
+        }
       }
     }
 
