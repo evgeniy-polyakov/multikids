@@ -9,6 +9,7 @@ export class HistoryModel {
     private static score = 0;
     private static history: HistoryEntry[] = [];
     private static failures: EquationModel[] = [];
+    private static successes: Record<EquationModel, boolean> = {};
     private static modified = false;
 
     static addHistory(value: AnswerModel) {
@@ -22,6 +23,7 @@ export class HistoryModel {
         const [equation, , result] = value;
         if (result) {
             this.failures = this.failures.filter(it => it !== equation);
+            this.successes[equation] = true;
         } else {
             if (this.failures.indexOf(equation) < 0) {
                 this.failures.push(equation);
@@ -54,6 +56,13 @@ export class HistoryModel {
                 this.history = [];
                 this.failures = [];
             }
+            this.successes = {};
+            this.history.forEach(it => {
+                const [, equation, , result] = it;
+                if (result) {
+                    this.successes[equation] = true;
+                }
+            });
         }
     }
 
@@ -75,6 +84,10 @@ export class HistoryModel {
 
     static getFailures() {
         return this.failures;
+    }
+
+    static getSuccesses() {
+        return this.successes;
     }
 
     private static modify() {

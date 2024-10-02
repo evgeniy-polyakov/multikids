@@ -55,7 +55,9 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
         if (failures.length > 0 && Random.bool()) {
             setEquationModel(Random.item(failures));
         } else {
-            setEquationModel(Random.item(Equations));
+            const successes = HistoryModel.getSuccesses();
+            const equations = Equations.filter(it => !successes[it]);
+            setEquationModel(Random.item(equations.length > 0 ? equations : Equations));
         }
         setAnswer(-1);
         setNewEquation(false);
