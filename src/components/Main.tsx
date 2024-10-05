@@ -63,6 +63,13 @@ export function Main({basePath}: {
             HistoryModel.setScore(score + value);
         }}/>
         <Keyboard onClick={onInput}/>
-        {init && <Score value={score}/>}
+        {init && <Score value={score} onClickItem={item => {
+            if (HistoryModel.isUnlocked(item)) {
+                document.body.dataset.bg = item;
+            } else if (HistoryModel.purchase(item)) {
+                setScore(HistoryModel.getScore());
+                document.body.dataset.bg = item;
+            }
+        }}/>}
     </main>;
 }

@@ -1,9 +1,11 @@
 import {classList} from "@/components/classList";
 import {useClickOutside} from "@/components/useClickOutside";
 import {useState} from "react";
+import {HistoryModel} from "@/models/HistoryModel";
 
-export function Score({value}: {
+export function Score({value, onClickItem}: {
     value: number,
+    onClickItem: (item: string) => void
 }) {
 
     const [inventoryOpen, setInventoryOpen] = useState(false);
@@ -16,20 +18,25 @@ export function Score({value}: {
             <span className="bg"></span>
             <span className="text">${value}</span>
         </div>
-        {inventoryOpen && <Inventory onClick={i => {
-            document.body.dataset.bg = `${i}`;
+        {inventoryOpen && <Inventory onClick={item => {
+            onClickItem(item);
             setInventoryOpen(false);
         }}/>}
     </div>
 }
 
 function Inventory({onClick}: {
-    onClick: (item: number) => void
+    onClick: (item: string) => void
 }) {
     return <ul className="inventory">
-        {[1, 2, 3, 4].map(i => <li key={i} data-item={i} onClick={() => onClick(i)}>
-            <span className="bg"></span>
-            <span className="icon"></span>
-        </li>)}
+        {[1, 2, 3, 4].map(i => {
+            const item = `bg${i}`;
+            return <li key={i} data-item={i}
+                       className={classList({locked: !HistoryModel.isUnlocked(item)})}
+                       onClick={() => onClick(item)}>
+                <span className="bg"></span>
+                <span className="icon"></span>
+            </li>
+        })}
     </ul>
 }

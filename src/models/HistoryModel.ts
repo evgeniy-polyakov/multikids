@@ -11,6 +11,14 @@ export class HistoryModel {
     private static failures: EquationModel[] = [];
     private static successes: Record<EquationModel, boolean> = {};
     private static modified = false;
+    private static unlocked: string[] = [];
+    private static defaultUnlocked = ["bg1"];
+    private static price: Record<string, number> = {
+        "bg2": 1000,
+        "bg3": 2000,
+        "bg4": 2000,
+    };
+    private static purchasing = false;
 
     static addHistory(value: AnswerModel) {
         if (!this.init) {
@@ -47,14 +55,16 @@ export class HistoryModel {
         if (!this.init) {
             this.init = true;
             try {
-                const {score, history, failures} = JSON.parse(localStorage.getItem(this.dataKey) ?? "{}");
+                const {score, history, failures, unlocked} = JSON.parse(localStorage.getItem(this.dataKey) ?? "{}");
                 this.score = !isNaN(parseInt(score)) ? parseInt(score) : 0;
                 this.history = Array.isArray(history) ? history : [];
                 this.failures = Array.isArray(failures) ? failures : [];
+                this.unlocked = Array.isArray(unlocked) ? unlocked : [];
             } catch (e) {
                 this.score = 0;
                 this.history = [];
                 this.failures = [];
+                this.unlocked = [];
             }
             this.successes = {};
             this.history.forEach(it => {
@@ -90,12 +100,37 @@ export class HistoryModel {
         return this.successes;
     }
 
+    static isUnlocked(item: string) {
+        return this.defaultUnlocked.indexOf(item) >= 0 || this.unlocked.indexOf(item) >= 0;
+    }
+
+    static getPrice(item: string) {
+        return this.price[item] ?? 0;
+    }
+
+    static purchase(item: string) {
+        if (this.purchasing || this.isUnlocked(item)) {
+            return false;
+        }
+        const price = this.getPrice(item);
+        if (price <= this.score) {
+            this.purchasing = true;
+            this.score -= price;
+            this.unlocked.push(item);
+            this.modify();
+            return true;
+        }
+        return false;
+    }
+
+
     private static modify() {
         this.modified = true;
         requestAnimationFrame(() => {
             if (this.modified) {
                 this.write();
                 this.modified = false;
+                this.purchasing = false;
             }
         });
     }
