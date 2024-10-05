@@ -39,7 +39,7 @@ body {
     }
   }
 
-  @for $bg from 1 through 1 {
+  @for $bg from 1 through 4 {
     @for $layer from 0 through 2 {
       > .background[data-bg="#{$bg}"] [data-layer="#{$layer}"] {
         background-image: url('../img/city-#{$bg}-#{$layer}.png');
