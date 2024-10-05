@@ -41,7 +41,7 @@ body {
 
   @for $bg from 1 through 4 {
     @for $layer from 0 through 2 {
-      > .background[data-bg="#{$bg}"] [data-layer="#{$layer}"] {
+      > .background[data-bg="bg#{$bg}"] [data-layer="#{$layer}"] {
         background-image: url('../img/city-#{$bg}-#{$layer}.png');
         --bg-anim-duration: #{((3 - $layer) * 60)}s;
       }

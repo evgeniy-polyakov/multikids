@@ -5,7 +5,7 @@ import {HistoryModel} from "@/models/HistoryModel";
 
 export function Score({value, onClickItem}: {
     value: number,
-    onClickItem: (item: string) => void
+    onClickItem: (item: string) => boolean
 }) {
 
     const [inventoryOpen, setInventoryOpen] = useState(false);
@@ -19,8 +19,9 @@ export function Score({value, onClickItem}: {
             <span className="text">${value}</span>
         </div>
         {inventoryOpen && <Inventory onClick={item => {
-            onClickItem(item);
-            setInventoryOpen(false);
+            if (onClickItem(item)) {
+                setInventoryOpen(false);
+            }
         }}/>}
     </div>
 }

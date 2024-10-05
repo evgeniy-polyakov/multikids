@@ -8,8 +8,9 @@ import {SFX} from "@/components/SFX";
 import {HistoryModel} from "@/models/HistoryModel";
 import {Howler} from "howler";
 
-export function Main({basePath}: {
-    basePath: string
+export function Main({basePath, setBg}: {
+    basePath: string,
+    setBg: (value: string) => void,
 }) {
 
     const [newEquation, setNewEquation] = useState(false);
@@ -65,11 +66,14 @@ export function Main({basePath}: {
         <Keyboard onClick={onInput}/>
         {init && <Score value={score} onClickItem={item => {
             if (HistoryModel.isUnlocked(item)) {
-                document.body.dataset.bg = item;
+                setBg(item);
+                return true;
             } else if (HistoryModel.purchase(item)) {
                 setScore(HistoryModel.getScore());
-                document.body.dataset.bg = item;
+                setBg(item);
+                return true;
             }
+            return false;
         }}/>}
     </main>;
 }
