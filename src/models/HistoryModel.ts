@@ -16,7 +16,7 @@ export class HistoryModel {
     private static price: Record<string, number> = {
         "bg2": 1000,
         "bg3": 2000,
-        "bg4": 2000,
+        "bg4": 3000,
     };
     private static purchasing = false;
 

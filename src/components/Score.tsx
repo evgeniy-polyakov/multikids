@@ -36,6 +36,7 @@ function Inventory({onClick}: {
                        onClick={() => onClick(item)}>
                 <span className="bg"></span>
                 <span className="icon"></span>
+                <span className="price">${HistoryModel.getPrice(item)}</span>
             </li>
         })}
     </ul>
