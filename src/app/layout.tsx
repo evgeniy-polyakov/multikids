@@ -11,9 +11,7 @@ export default function RootLayout({children}: Readonly<{
 }>) {
     return (
         <html lang="en">
-        <body>
         {children}
-        </body>
         </html>
     );
 }

@@ -13,17 +13,17 @@ body {
   user-select: none;
   overflow: hidden;
 
-  &:before {
-    content: '';
+  > .background [data-layer] {
+    --bg-height: 100dvh;
+    --bg-anim-duration: 60s;
     position: absolute;
     top: 0;
     left: 0;
-    --bg-height: 100dvh;
     height: var(--bg-height);
     width: calc(var(--bg-height) * 8 * 1920 / 1080);
-    background: url('../img/city-1.png') top left repeat-x;
+    background: top left repeat-x;
     background-size: auto 100%;
-    animation: bg-anim 60s linear infinite;
+    animation: bg-anim var(--bg-anim-duration) linear infinite;
 
     @keyframes bg-anim {
       0% {
@@ -39,9 +39,12 @@ body {
     }
   }
 
-  @for $i from 1 through 4 {
-    &[data-bg="bg#{$i}"]:before {
-      background-image: url('../img/city-#{$i}.png');
+  @for $bg from 1 through 1 {
+    @for $layer from 0 through 2 {
+      > .background[data-bg="#{$bg}"] [data-layer="#{$layer}"] {
+        background-image: url('../img/city-#{$bg}-#{$layer}.png');
+        --bg-anim-duration: #{((3 - $layer) * 60)}s;
+      }
     }
   }
 
