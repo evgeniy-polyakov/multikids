@@ -1,24 +1,25 @@
 import {classList} from "@/components/classList";
 import {useClickOutside} from "@/components/useClickOutside";
 import {useState} from "react";
-import {HistoryModel} from "@/models/HistoryModel";
+import {GameModel} from "@/models/GameModel";
 
-export function Score({value, onClickItem}: {
-    value: number,
-    onClickItem: (item: string) => boolean
+export function Score({onClickItem, gameModel}: {
+    onClickItem: (item: string) => boolean,
+    gameModel: GameModel,
 }) {
 
     const [inventoryOpen, setInventoryOpen] = useState(false);
     const ref = useClickOutside<HTMLDivElement>(() => {
         setInventoryOpen(false);
     });
+    const value = gameModel.getScore();
 
     return <div ref={ref} className={classList("score", {negative: value < 0})}>
         <div onClick={() => setInventoryOpen(!inventoryOpen)}>
             <span className="bg"></span>
             <span className="text">${value}</span>
         </div>
-        {inventoryOpen && <Inventory onClick={item => {
+        {inventoryOpen && <Inventory gameModel={gameModel} onClick={item => {
             if (onClickItem(item)) {
                 setInventoryOpen(false);
             }
@@ -26,18 +27,19 @@ export function Score({value, onClickItem}: {
     </div>
 }
 
-function Inventory({onClick}: {
-    onClick: (item: string) => void
+function Inventory({onClick, gameModel}: {
+    onClick: (item: string) => void,
+    gameModel: GameModel,
 }) {
     return <ul className="inventory">
         {[1, 2, 3, 4].map(i => {
             const item = `bg${i}`;
             return <li key={i} data-item={i}
-                       className={classList({locked: !HistoryModel.isUnlocked(item)})}
+                       className={classList({locked: !gameModel.isUnlocked(item)})}
                        onClick={() => onClick(item)}>
                 <span className="bg"></span>
                 <span className="icon"></span>
-                <span className="price">${HistoryModel.getPrice(item)}</span>
+                <span className="price">${gameModel.getPrice(item)}</span>
             </li>
         })}
     </ul>

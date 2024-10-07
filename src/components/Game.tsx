@@ -1,17 +1,15 @@
-"use client"
-
 import {AnswerModel, EquationModel, Equations, Operator, parseEquation} from "@/models/EquationModel";
 import {Dispatch, useEffect, useState} from "react";
 import {Random} from "@/core/Random";
 import {classList} from "@/components/classList";
-import {HistoryModel} from "@/models/HistoryModel";
+import {GameModel} from "@/models/GameModel";
 import {SFX} from "@/components/SFX";
 
-export function Game({newEquation, setNewEquation, input, onScore}: {
+export function Game({newEquation, setNewEquation, input, gameModel}: {
     newEquation: boolean,
     setNewEquation: Dispatch<boolean>,
     input: number,
-    onScore: (value: number) => void,
+    gameModel: GameModel,
 }) {
 
     const [equationModel, setEquationModel] = useState<EquationModel>();
@@ -21,7 +19,7 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
     useEffect(() => {
         if (newEquation) {
             if (!equationModel) {
-                setHistory(HistoryModel.getHistory());
+                setHistory(gameModel.getHistory());
             }
             addNewEquation();
         }
@@ -39,23 +37,23 @@ export function Game({newEquation, setNewEquation, input, onScore}: {
             const correct = answer === equationStruct[equationStruct.question];
             const answerModel: AnswerModel = [equationModel, answer, correct];
             setHistory([...history, answerModel]);
-            HistoryModel.addHistory(answerModel);
+            gameModel.addHistory(answerModel);
             const a = equationStruct[2];
             const b = equationStruct[2];
             const c = equationStruct[2];
             const score = c === 0 ? b === 0 ? a : b : c;
-            onScore(correct ? score : -score);
+            gameModel.addScore(correct ? score : -score);
             if (correct) {
                 SFX.play("win");
             } else {
                 SFX.play("lose", 0.6);
             }
         }
-        const failures = HistoryModel.getFailures();
+        const failures = gameModel.getFailures();
         if (failures.length > 0 && Random.bool()) {
             setEquationModel(Random.item(failures));
         } else {
-            const successes = HistoryModel.getSuccesses();
+            const successes = gameModel.getSuccesses();
             const equations = Equations.filter(it => !successes[it]);
             setEquationModel(Random.item(equations.length > 0 ? equations : Equations));
         }

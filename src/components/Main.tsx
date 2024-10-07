@@ -1,21 +1,19 @@
-"use client"
-
 import {ActionCode, Keyboard} from "@/components/Keyboard";
 import {Game} from "@/components/Game";
 import {useEffect, useState} from "react";
 import {Score} from "@/components/Score";
 import {SFX} from "@/components/SFX";
-import {HistoryModel} from "@/models/HistoryModel";
+import {GameModel} from "@/models/GameModel";
 import {Howler} from "howler";
 
-export function Main({basePath, setBg}: {
+export function Main({basePath, setBg, gameModel}: {
     basePath: string,
     setBg: (value: string) => void,
+    gameModel: GameModel,
 }) {
 
     const [newEquation, setNewEquation] = useState(false);
     const [input, setInput] = useState(-1);
-    const [score, setScore] = useState(0);
     const [init, setInit] = useState(false);
 
     useEffect(() => {
@@ -26,8 +24,6 @@ export function Main({basePath, setBg}: {
             document.addEventListener("visibilitychange", () => {
                 Howler.mute(document.hidden);
             }, false);
-            HistoryModel.read();
-            setScore(HistoryModel.getScore());
             setInit(true);
             setNewEquation(true);
         }
@@ -59,17 +55,13 @@ export function Main({basePath, setBg}: {
     }
 
     return <main>
-        <Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} onScore={value => {
-            setScore(score + value);
-            HistoryModel.setScore(score + value);
-        }}/>
+        <Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} gameModel={gameModel}/>
         <Keyboard onClick={onInput}/>
-        {init && <Score value={score} onClickItem={item => {
-            if (HistoryModel.isUnlocked(item)) {
+        {init && <Score gameModel={gameModel} onClickItem={item => {
+            if (gameModel.isUnlocked(item)) {
                 setBg(item);
                 return true;
-            } else if (HistoryModel.purchase(item)) {
-                setScore(HistoryModel.getScore());
+            } else if (gameModel.purchase(item)) {
                 setBg(item);
                 return true;
             }
