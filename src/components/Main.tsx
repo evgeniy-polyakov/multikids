@@ -5,6 +5,7 @@ import {Score} from "@/components/Score";
 import {SFX} from "@/components/SFX";
 import {GameModel} from "@/models/GameModel";
 import {Howler} from "howler";
+import {Button} from "@/components/Button";
 
 export function Main({basePath, gameModel}: {
     basePath: string,
@@ -66,5 +67,9 @@ export function Main({basePath, gameModel}: {
             }
             return false;
         }}/>}
+        {init && <div className="controls">
+            <Button className="help" text="?"/>
+            <Button className="mute" text=""/>
+        </div>}
     </main>;
 }

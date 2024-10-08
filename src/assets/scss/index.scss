@@ -207,36 +207,47 @@ body {
       }
     }
 
-    .score {
-      position: absolute;
-      top: 0;
-      left: 0;
+    button {
+      all: unset;
+      position: relative;
       font-size: min(55px, 10vh);
+      min-width: calc(min(55px, 10vh) + 0.4em);
       padding: 0.2em 0.4em;
+      line-height: 1;
+      color: #9a7a25;
       cursor: pointer;
+      transition: color 0.2s ease;
+      display: block;
+      box-sizing: border-box;
 
       .bg {
         @include button-bg();
       }
 
-      > div {
-        color: #9a7a25;
-        transition: color 0.2s ease;
-      }
-
       .text {
         position: relative;
-        pointer-events: none;
-      }
-
-      &.negative > div {
-        color: #bd1a1a;
+        display: block;
+        text-align: center;
       }
 
       @media (hover: hover) {
-        > div:hover {
-          color: #ffdf30;
+        &:hover {
+          color: #ffdf30 !important;
         }
+      }
+    }
+
+    .score {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      .bg {
+        @include button-bg();
+      }
+
+      &.negative button {
+        color: #bd1a1a;
       }
     }
 
@@ -260,9 +271,10 @@ body {
         height: calc(var(--width) * 1.1);
         position: relative;
         background: #000;
+        cursor: pointer;
 
         .bg {
-          @include nineSliceBg('../img/btn.png', 4);
+          @include button-bg();
         }
 
         .icon {
@@ -313,6 +325,18 @@ body {
             background-image: url('../img/city-icon-#{$i}-locked.png');
           }
         }
+      }
+    }
+
+    .controls {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      flex-flow: row nowrap;
+
+      .help {
+        padding-right: 0.3em;
       }
     }
   }

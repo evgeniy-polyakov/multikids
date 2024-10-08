@@ -2,6 +2,7 @@ import {classList} from "@/components/classList";
 import {useClickOutside} from "@/components/useClickOutside";
 import {useState} from "react";
 import {GameModel} from "@/models/GameModel";
+import {Button} from "@/components/Button";
 
 export function Score({onClickItem, gameModel}: {
     onClickItem: (item: string) => boolean,
@@ -15,10 +16,7 @@ export function Score({onClickItem, gameModel}: {
     const value = gameModel.getScore();
 
     return <div ref={ref} className={classList("score", {negative: value < 0})}>
-        <div onClick={() => setInventoryOpen(!inventoryOpen)}>
-            <span className="bg"></span>
-            <span className="text">${value}</span>
-        </div>
+        <Button text={`$${value}`} onClick={() => setInventoryOpen(!inventoryOpen)}/>
         {inventoryOpen && <Inventory gameModel={gameModel} onClick={item => {
             if (onClickItem(item)) {
                 setInventoryOpen(false);
