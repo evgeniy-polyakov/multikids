@@ -57,6 +57,7 @@ export const Equations = [
 export type EquationStruct = {
     operator: Operator,
     question: 0 | 1 | 2,
+    score: number,
     [0]: number,
     [1]: number,
     [2]: number,
@@ -68,15 +69,17 @@ export function parseEquation(equation: EquationModel): EquationStruct {
         return {
             operator: Operator.Multi,
             question: 0,
+            score: 0,
             [0]: 0, [1]: 0, [2]: 0,
         };
     }
+    const q = e[1].lastIndexOf("?") > 0 ? 0 : e[3].lastIndexOf("?") > 0 ? 1 : 2;
+    const m = [1, 3, 4].map(i => parseInt(e[i].replace("?", ""))) as [number, number, number];
     return {
         operator: e[2] as Operator,
-        question: e[1].lastIndexOf("?") > 0 ? 0 : e[3].lastIndexOf("?") > 0 ? 1 : 2,
-        [0]: parseInt(e[1].replace("?", "")),
-        [1]: parseInt(e[3].replace("?", "")),
-        [2]: parseInt(e[4].replace("?", "")),
+        question: q,
+        ...m,
+        score: m[q] ? m[q] : Math.max(...m),
     };
 }
 

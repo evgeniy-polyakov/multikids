@@ -38,12 +38,11 @@ export function Game({newEquation, setNewEquation, input, gameModel}: {
             const answerModel: AnswerModel = [equationModel, answer, correct];
             setHistory([...history, answerModel]);
             gameModel.addHistory(answerModel);
-            const a = equationStruct[0];
-            const b = equationStruct[1];
-            const c = equationStruct[2];
-            const q = equationStruct[equationStruct.question];
-            const score = q !== 0 ? q : Math.max(a, b, c);
-            gameModel.addScore(correct ? score : -score);
+            if (correct) {
+                gameModel.addScore(equationStruct.score);
+            } else {
+                gameModel.addScore(-answer);
+            }
             if (correct) {
                 SFX.play("win");
             } else {
