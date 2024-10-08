@@ -5,36 +5,38 @@ type HistoryEntry = [date: number, ...AnswerModel];
 
 interface GameData {
     score: number;
+    background: string;
     history: HistoryEntry[];
     unlocked: string[];
     failures: EquationModel[];
     successes: Record<EquationModel, boolean>;
 }
 
+const defaultUnlocked = ["bg1"];
+const price: Record<string, number> = {
+    "bg2": 1000,
+    "bg3": 2000,
+    "bg4": 3000,
+};
+const allBg = [1, 2, 3, 4].map(i => `bg${i}`);
+
 export class GameModel {
 
-    private readonly defaultUnlocked = ["bg1"];
-    private readonly price: Record<string, number> = {
-        "bg2": 1000,
-        "bg3": 2000,
-        "bg4": 3000,
-    };
-
-    constructor(private readonly state: GameData,
-                private readonly setState: (value: GameData) => void) {
+    constructor(private readonly data: GameData,
+                private readonly setData: (value: GameData) => void) {
     }
 
     addHistory(value: AnswerModel) {
-        const history = this.state.history;
+        const history = this.data.history;
         history.push([new Date().getTime(), ...value]);
         while (history.length > 1000) {
             history.shift();
         }
-        const failures = this.state.failures;
+        const failures = this.data.failures;
         const [equation, , result] = value;
         if (result) {
-            this.state.failures = failures.filter(it => it !== equation);
-            this.state.successes[equation] = true;
+            this.data.failures = failures.filter(it => it !== equation);
+            this.data.successes[equation] = true;
         } else {
             if (failures.indexOf(equation) < 0) {
                 failures.push(equation);
@@ -43,41 +45,50 @@ export class GameModel {
                 }
             }
         }
-        this.modify();
+        this.update();
     }
 
     setScore(value: number) {
-        this.state.score = value;
-        this.modify();
+        this.data.score = value;
+        this.update();
     }
 
     addScore(value: number) {
-        this.state.score += value;
-        this.modify();
+        this.data.score += value;
+        this.update();
+    }
+
+    setBg(value: string) {
+        this.data.background = value;
+        this.update();
     }
 
     getHistory() {
-        return this.state.history.map(it => it.slice(1) as AnswerModel) ?? [];
+        return this.data.history.map(it => it.slice(1) as AnswerModel) ?? [];
     }
 
     getScore() {
-        return this.state.score;
+        return this.data.score;
     }
 
     getFailures() {
-        return this.state.failures;
+        return this.data.failures;
     }
 
     getSuccesses() {
-        return this.state.successes;
+        return this.data.successes;
     }
 
     isUnlocked(item: string) {
-        return this.defaultUnlocked.indexOf(item) >= 0 || this.state.unlocked.indexOf(item) >= 0;
+        return defaultUnlocked.indexOf(item) >= 0 || this.data.unlocked.indexOf(item) >= 0;
     }
 
     getPrice(item: string) {
-        return this.price[item] ?? 0;
+        return price[item] ?? 0;
+    }
+
+    getBg() {
+        return this.data.background;
     }
 
     purchase(item: string) {
@@ -85,17 +96,17 @@ export class GameModel {
             return false;
         }
         const price = this.getPrice(item);
-        if (price <= this.state.score) {
-            this.state.score -= price;
-            this.state.unlocked.push(item);
-            this.modify();
+        if (price <= this.data.score) {
+            this.data.score -= price;
+            this.data.unlocked.push(item);
+            this.update();
             return true;
         }
         return false;
     }
 
-    modify() {
-        this.setState({...this.state});
+    private update() {
+        this.setData({...this.data});
     }
 }
 
@@ -109,17 +120,21 @@ function readGameData(): GameData {
         if (!Array.isArray(data.history)) data.history = [];
         if (!Array.isArray(data.unlocked)) data.unlocked = [];
         if (!Array.isArray(data.failures)) data.failures = [];
-        if (typeof data.successes !== "object") data.successes = {};
-        return data;
     } catch (e) {
         data = {
             score: 0,
+            background: "bg1",
             history: [],
             unlocked: [],
             failures: [],
             successes: {},
         };
     }
+    const bg = data.background;
+    if (allBg.indexOf(bg) < 0) {
+        data.background = allBg[0];
+    }
+    data.successes = {};
     data.history.forEach(it => {
         const [, equation, , result] = it;
         if (result) {

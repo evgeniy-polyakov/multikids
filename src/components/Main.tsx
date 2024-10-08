@@ -6,9 +6,8 @@ import {SFX} from "@/components/SFX";
 import {GameModel} from "@/models/GameModel";
 import {Howler} from "howler";
 
-export function Main({basePath, setBg, gameModel}: {
+export function Main({basePath, gameModel}: {
     basePath: string,
-    setBg: (value: string) => void,
     gameModel: GameModel,
 }) {
 
@@ -59,10 +58,10 @@ export function Main({basePath, setBg, gameModel}: {
         <Keyboard onClick={onInput}/>
         {init && <Score gameModel={gameModel} onClickItem={item => {
             if (gameModel.isUnlocked(item)) {
-                setBg(item);
+                gameModel.setBg(item);
                 return true;
             } else if (gameModel.purchase(item)) {
-                setBg(item);
+                gameModel.setBg(item);
                 return true;
             }
             return false;
