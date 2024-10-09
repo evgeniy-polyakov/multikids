@@ -16,7 +16,7 @@ export function Score({onClickItem, gameModel}: {
     const value = gameModel.getScore();
 
     return <div ref={ref} className={classList("score", {negative: value < 0})}>
-        <Button text={`$${value}`} onClick={() => setInventoryOpen(!inventoryOpen)}/>
+        <Button onClick={() => setInventoryOpen(!inventoryOpen)}>{`$${value}`}</Button>
         {inventoryOpen && <Inventory gameModel={gameModel} onClick={item => {
             if (onClickItem(item)) {
                 setInventoryOpen(false);

@@ -215,6 +215,7 @@ body {
       padding: 0.2em 0.4em;
       line-height: 1;
       color: #9a7a25;
+      fill: #9a7a25;
       cursor: pointer;
       transition: color 0.2s ease;
       display: block;
@@ -228,11 +229,17 @@ body {
         position: relative;
         display: block;
         text-align: center;
+
+        svg {
+          width: auto;
+          height: min(38px, 7vh);
+        }
       }
 
       @media (hover: hover) {
         &:hover {
           color: #ffdf30 !important;
+          fill: #ffdf30 !important;
         }
       }
     }

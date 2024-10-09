@@ -6,6 +6,8 @@ import {SFX} from "@/components/SFX";
 import {GameModel} from "@/models/GameModel";
 import {Howler} from "howler";
 import {Button} from "@/components/Button";
+import {MusicOff} from "@/components/MusicOff";
+import {MusicOn} from "@/components/MusicOn";
 
 export function Main({basePath, gameModel}: {
     basePath: string,
@@ -68,8 +70,11 @@ export function Main({basePath, gameModel}: {
             return false;
         }}/>}
         {init && <div className="controls">
-            <Button className="help" text="?"/>
-            <Button className="mute" text=""/>
+            <Button className="help">?</Button>
+            <Button className="mute">
+                <MusicOn/>
+                <MusicOff/>
+            </Button>
         </div>}
     </main>;
 }

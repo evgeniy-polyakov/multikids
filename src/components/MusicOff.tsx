@@ -1,0 +1,7 @@
+export function MusicOff() {
+    return <svg xmlns="http://www.w3.org/2000/svg" width="37px" height="38px" viewBox="0 0 37 38">
+        <path d="M17 22 V28 H15 V25 H10 V28 H7 V34 H10 V38 H17 V34 H20 V24 H22 V26 H24 V28 H26 V30 H28 V32 H30 V35 H34 V32 H31 V30 H29 V28 H27 V26 H25 V24 H23 V22 H21 V20 H19 V22 Z"/>
+        <path d="M20 6 H23 V9 H33 V6 H30 V3 H20 V0 H17 V16 H15 V14 H13 V12 H11 V10 H9 V8 H7 V5 H3 V8 H6 V10 H8 V12 H10 V14 H12 V16 H14 V18 H16 V20 H18 V18 H20 Z"/>
+        <path d="M33 9 H37 V13 H33 Z"/>
+    </svg>
+}
