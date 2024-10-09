@@ -10,6 +10,7 @@ interface GameData {
     unlocked: string[];
     failures: EquationModel[];
     successes: Record<EquationModel, boolean>;
+    mute?: boolean;
 }
 
 const defaultUnlocked = ["bg1"];
@@ -103,6 +104,15 @@ export class GameModel {
             return true;
         }
         return false;
+    }
+
+    getMute() {
+        return this.data.mute ?? false;
+    }
+
+    setMute(value: boolean) {
+        this.data.mute = value;
+        this.update();
     }
 
     private update() {

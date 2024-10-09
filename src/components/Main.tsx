@@ -4,10 +4,8 @@ import {useEffect, useState} from "react";
 import {Score} from "@/components/Score";
 import {SFX} from "@/components/SFX";
 import {GameModel} from "@/models/GameModel";
-import {Howler} from "howler";
 import {Button} from "@/components/Button";
-import {MusicOff} from "@/components/MusicOff";
-import {MusicOn} from "@/components/MusicOn";
+import {ButtonMute} from "@/components/ButtonMute";
 
 export function Main({basePath, gameModel}: {
     basePath: string,
@@ -23,9 +21,6 @@ export function Main({basePath, gameModel}: {
             SFX.basePath = basePath;
             SFX.load("clear", "lose", "shot", "win");
             SFX.loop("music");
-            document.addEventListener("visibilitychange", () => {
-                Howler.mute(document.hidden);
-            }, false);
             setInit(true);
             setNewEquation(true);
         }
@@ -71,10 +66,8 @@ export function Main({basePath, gameModel}: {
         }}/>}
         {init && <div className="controls">
             <Button className="help">?</Button>
-            <Button className="mute">
-                <MusicOn/>
-                <MusicOff/>
-            </Button>
+            <ButtonMute selected={gameModel.getMute()}
+                        setSelected={value => gameModel.setMute(value)}/>
         </div>}
     </main>;
 }

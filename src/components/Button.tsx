@@ -1,7 +1,7 @@
 import {JSX} from "react";
 
 export function Button({children, onClick, className}: {
-    children: string | JSX.Element | JSX.Element[],
+    children?: string | JSX.Element | JSX.Element[],
     onClick?: () => void,
     className?: string,
 }) {
