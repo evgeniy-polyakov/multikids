@@ -3,6 +3,7 @@ import {useClickOutside} from "@/components/useClickOutside";
 import {useState} from "react";
 import {GameModel} from "@/models/GameModel";
 import {Button} from "@/components/Button";
+import {SFX} from "@/components/SFX";
 
 export function Score({onClickItem, gameModel}: {
     onClickItem: (item: string) => boolean,
@@ -19,6 +20,7 @@ export function Score({onClickItem, gameModel}: {
         <Button onClick={() => setInventoryOpen(!inventoryOpen)}>{`$${value}`}</Button>
         {inventoryOpen && <Inventory gameModel={gameModel} onClick={item => {
             if (onClickItem(item)) {
+                SFX.play("clear");
                 setInventoryOpen(false);
             }
         }}/>}

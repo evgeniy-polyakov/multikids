@@ -72,6 +72,7 @@ export function Main({basePath, gameModel}: {
                         setSelected={value => gameModel.setMute(value)}/>
             {helpOpen && <Help onClose={() => {
                 setHelpOpen(false);
+                setInput(-1);
                 setNewEquation("replace");
             }}/>}
         </div>}
