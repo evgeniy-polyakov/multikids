@@ -18,7 +18,7 @@ export function ButtonMute({selected, setSelected}: {
         Howler.mute(selected || document.hidden);
     }
 
-    return <Button className="mute" onClick={() => setSelected(!selected)}>
+    return <Button className="button-mute" onClick={() => setSelected(!selected)}>
         {selected ? <IconMusicOff/> : <IconMusicOn/>}
     </Button>
 }

@@ -5,9 +5,11 @@ import {classList} from "@/components/classList";
 import {GameModel} from "@/models/GameModel";
 import {SFX} from "@/components/SFX";
 
+export type NewEquation = "insert" | "replace" | false;
+
 export function Game({newEquation, setNewEquation, input, gameModel}: {
-    newEquation: boolean,
-    setNewEquation: Dispatch<boolean>,
+    newEquation: NewEquation,
+    setNewEquation: Dispatch<NewEquation>,
     input: number,
     gameModel: GameModel,
 }) {
@@ -32,7 +34,7 @@ export function Game({newEquation, setNewEquation, input, gameModel}: {
     }, [input]);
 
     function addNewEquation() {
-        if (equationModel) {
+        if (equationModel && newEquation === "insert") {
             const equationStruct = parseEquation(equationModel);
             const correct = answer === equationStruct[equationStruct.question];
             const answerModel: AnswerModel = [equationModel, answer, correct];

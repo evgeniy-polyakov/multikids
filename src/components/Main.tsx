@@ -1,19 +1,21 @@
 import {ActionCode, Keyboard} from "@/components/Keyboard";
-import {Game} from "@/components/Game";
+import {Game, NewEquation} from "@/components/Game";
 import {useEffect, useState} from "react";
 import {Score} from "@/components/Score";
 import {SFX} from "@/components/SFX";
 import {GameModel} from "@/models/GameModel";
 import {Button} from "@/components/Button";
 import {ButtonMute} from "@/components/ButtonMute";
+import {Help} from "@/components/Help";
 
 export function Main({basePath, gameModel}: {
     basePath: string,
     gameModel: GameModel,
 }) {
 
-    const [newEquation, setNewEquation] = useState(false);
+    const [newEquation, setNewEquation] = useState<NewEquation>(false);
     const [input, setInput] = useState(-1);
+    const [helpOpen, setHelpOpen] = useState(false);
     const [init, setInit] = useState(false);
 
     useEffect(() => {
@@ -22,7 +24,7 @@ export function Main({basePath, gameModel}: {
             SFX.load("clear", "lose", "shot", "win");
             SFX.loop("music");
             setInit(true);
-            setNewEquation(true);
+            setNewEquation("insert");
         }
     }, [init]);
 
@@ -35,7 +37,7 @@ export function Main({basePath, gameModel}: {
             case ActionCode.Enter:
                 if (input > -1) {
                     setInput(-1);
-                    setNewEquation(true);
+                    setNewEquation("insert");
                 }
                 break;
             default:
@@ -65,9 +67,13 @@ export function Main({basePath, gameModel}: {
             return false;
         }}/>}
         {init && <div className="controls">
-            <Button className="help">?</Button>
+            <Button className="button-help" onClick={() => setHelpOpen(true)}>?</Button>
             <ButtonMute selected={gameModel.getMute()}
                         setSelected={value => gameModel.setMute(value)}/>
+            {helpOpen && <Help onClose={() => {
+                setHelpOpen(false);
+                setNewEquation("replace");
+            }}/>}
         </div>}
     </main>;
 }
