@@ -86,7 +86,9 @@ body {
   }
 
   @mixin button-bg() {
-    @include nineSliceBg('../img/btn.png', 4);
+    .bg {
+      @include nineSliceBg('../img/btn.png', 4);
+    }
   }
 
   @mixin font-shadow($width: 4px) {
@@ -191,9 +193,7 @@ body {
         cursor: pointer;
         transition: color 0.2s ease;
 
-        .bg {
-          @include button-bg();
-        }
+        @include button-bg();
 
         .text {
           position: relative;
@@ -244,9 +244,7 @@ body {
       display: block;
       box-sizing: border-box;
 
-      .bg {
-        @include button-bg();
-      }
+      @include button-bg();
 
       .text {
         position: relative;
@@ -272,9 +270,7 @@ body {
       top: 0;
       left: 0;
 
-      .bg {
-        @include button-bg();
-      }
+      @include button-bg();
 
       &.negative button {
         color: var(--color-failure);
@@ -303,9 +299,7 @@ body {
         background: var(--color-black);
         cursor: pointer;
 
-        .bg {
-          @include button-bg();
-        }
+        @include button-bg();
 
         .icon {
           position: absolute;
@@ -385,10 +379,7 @@ body {
       justify-content: stretch;
       align-items: stretch;
 
-      &:before {
-        content: '';
-        @include button-bg();
-      }
+      @include button-bg();
 
       .scroll {
         display: flex;
