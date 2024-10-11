@@ -85,10 +85,8 @@ body {
     border-image-slice: $border fill;
   }
 
-  @mixin button-bg() {
-    .bg {
-      @include nineSliceBg('../img/btn.png', 4);
-    }
+  .button-bg {
+    @include nineSliceBg('../img/btn.png', 4);
   }
 
   @mixin font-shadow($width: 4px) {
@@ -193,8 +191,6 @@ body {
         cursor: pointer;
         transition: color 0.2s ease;
 
-        @include button-bg();
-
         .text {
           position: relative;
         }
@@ -244,8 +240,6 @@ body {
       display: block;
       box-sizing: border-box;
 
-      @include button-bg();
-
       .text {
         position: relative;
         display: block;
@@ -269,8 +263,6 @@ body {
       position: absolute;
       top: 0;
       left: 0;
-
-      @include button-bg();
 
       &.negative button {
         color: var(--color-failure);
@@ -298,8 +290,6 @@ body {
         position: relative;
         background: var(--color-black);
         cursor: pointer;
-
-        @include button-bg();
 
         .icon {
           position: absolute;
@@ -365,8 +355,6 @@ body {
     }
 
     dialog.help {
-      all: unset;
-      box-sizing: border-box;
       position: fixed;
       top: 0;
       left: 0;
@@ -378,8 +366,8 @@ body {
       display: flex;
       justify-content: stretch;
       align-items: stretch;
-
-      @include button-bg();
+      border: none;
+      background: none;
 
       .scroll {
         display: flex;

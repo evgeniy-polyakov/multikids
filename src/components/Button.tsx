@@ -11,7 +11,7 @@ export function Button({children, onClick, className, clickSFX}: {
         SFX.play(clickSFX ?? "clear");
         onClick?.();
     }}>
-        <span className="bg"></span>
+        <span className="button-bg"></span>
         <span className="text">{children}</span>
     </button>
 }

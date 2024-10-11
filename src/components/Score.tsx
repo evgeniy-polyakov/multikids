@@ -37,7 +37,7 @@ function Inventory({onClick, gameModel}: {
             return <li key={i} data-item={i}
                        className={classList({locked: !gameModel.isUnlocked(item)})}
                        onClick={() => onClick(item)}>
-                <span className="bg"></span>
+                <span className="button-bg"></span>
                 <span className="icon"></span>
                 <span className="price">${gameModel.getPrice(item)}</span>
             </li>
