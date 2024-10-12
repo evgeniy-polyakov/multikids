@@ -71,17 +71,19 @@ body {
     }
   }
 
-  @mixin nineSliceBg($src, $border) {
+  @mixin nineSliceBg($src, $border, $fallback-bg: true) {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url($src);
-    background-size: 100% 100%;
+    @if ($fallback-bg) {
+      background: url($src) no-repeat;
+      background-size: 100% 100%;
+    }
     border-width: #{$border}px;
     border-style: solid;
-    border-image: url($src);
+    border-image-source: url($src);
     border-image-slice: $border fill;
   }
 
@@ -255,6 +257,25 @@ body {
         &:hover {
           color: var(--color-hover) !important;
           fill: var(--color-hover) !important;
+        }
+      }
+
+      &:focus-visible:after {
+        content: '';
+        @include nineSliceBg('../img/btn-focus.png', 12, false);
+        transform-origin: center;
+        animation: focus-rect-anim 1s ease-in-out infinite;
+
+        @keyframes focus-rect-anim {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(0.9);
+          }
+          100% {
+            transform: scale(1);
+          }
         }
       }
     }
