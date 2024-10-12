@@ -375,7 +375,14 @@ body {
       }
     }
 
+
     dialog.help {
+      all: unset;
+      box-sizing: border-box;
+      display: none;
+    }
+
+    dialog.help[open] {
       position: fixed;
       top: 0;
       left: 0;

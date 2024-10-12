@@ -70,11 +70,11 @@ export function Main({basePath, gameModel}: {
             <Button className="button-help" onClick={() => setHelpOpen(true)}>?</Button>
             <ButtonMute selected={gameModel.getMute()}
                         setSelected={value => gameModel.setMute(value)}/>
-            {helpOpen && <Help onClose={() => {
-                setHelpOpen(false);
-                setInput(-1);
-                setNewEquation("replace");
-            }}/>}
         </div>}
+        <Help open={helpOpen} onClose={() => {
+            setHelpOpen(false);
+            setInput(-1);
+            setNewEquation("replace");
+        }}/>
     </main>;
 }
