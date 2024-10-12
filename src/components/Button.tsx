@@ -2,7 +2,7 @@ import {JSX} from "react";
 import {SFX} from "@/components/SFX";
 
 export function Button({children, onClick, className, clickSFX, autoFocus}: {
-    children?: string | JSX.Element | JSX.Element[],
+    children?: string | JSX.Element | (JSX.Element | boolean | string | null)[],
     onClick?: () => void,
     className?: string,
     clickSFX?: string | false,

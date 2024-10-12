@@ -18,28 +18,31 @@ export function Score({onClickItem, gameModel}: {
 
     return <div ref={ref} className={classList("score", {negative: value < 0})}>
         <Button onClick={() => setInventoryOpen(!inventoryOpen)}>{`$${value}`}</Button>
-        {inventoryOpen && <Inventory gameModel={gameModel} onClick={item => {
+        <Inventory open={inventoryOpen} gameModel={gameModel} onClick={item => {
             if (onClickItem(item)) {
                 SFX.play("clear");
                 setInventoryOpen(false);
             }
-        }}/>}
+        }}/>
     </div>
 }
 
-function Inventory({onClick, gameModel}: {
+function Inventory({open, onClick, gameModel}: {
+    open: boolean,
     onClick: (item: string) => void,
     gameModel: GameModel,
 }) {
-    return <ul className="inventory">
+    return <ul className={classList("inventory", {open})}>
         {[1, 2, 3, 4].map(i => {
             const item = `bg${i}`;
+            const locked = !gameModel.isUnlocked(item);
             return <li key={i} data-item={i}
-                       className={classList({locked: !gameModel.isUnlocked(item)})}
-                       onClick={() => onClick(item)}>
-                <span className="button-bg"></span>
-                <span className="icon"></span>
-                <span className="price">${gameModel.getPrice(item)}</span>
+                       className={classList({locked})}>
+                <Button onClick={() => onClick(item)}>
+                    <span className="icon"></span>
+                    {locked && <span className="padlock"></span>}
+                    {locked && <span className="price">${gameModel.getPrice(item)}</span>}
+                </Button>
             </li>
         })}
     </ul>
