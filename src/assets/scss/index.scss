@@ -452,9 +452,11 @@ body {
         p {
           flex: 0 0 100%;
           text-align: center;
+          margin: 1em 0;
 
           a {
             color: inherit;
+            text-decoration: underline;
 
             &:hover {
               color: var(--color-hover);
