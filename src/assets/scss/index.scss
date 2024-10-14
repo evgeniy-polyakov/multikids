@@ -13,6 +13,7 @@ body {
   --color-black: #000000;
   --color-success: #74b750;
   --color-failure: #bd1a1a;
+  --normal-font-size: min(44px, 10vh);
   all: unset;
   display: block;
   background: var(--color-black);
@@ -114,6 +115,58 @@ body {
     height: 100%;
     position: relative;
 
+    button {
+      all: unset;
+      position: relative;
+      font-size: var(--normal-font-size);
+      min-width: calc(var(--normal-font-size) + 0.4em);
+      padding: 0.2em 0.4em;
+      line-height: 1;
+      color: var(--color-accent);
+      fill: var(--color-accent);
+      cursor: pointer;
+      transition: color 0.2s ease;
+      display: block;
+      box-sizing: border-box;
+
+      .text {
+        position: relative;
+        display: block;
+        text-align: center;
+
+        svg {
+          width: auto;
+          height: min(32px, 7vh);
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: var(--color-hover) !important;
+          fill: var(--color-hover) !important;
+        }
+      }
+
+      &:focus-visible:after {
+        content: '';
+        @include nineSliceBg('../img/btn-focus.png', 12, false);
+        transform-origin: center;
+        animation: focus-rect-anim 1s ease-in-out infinite;
+
+        @keyframes focus-rect-anim {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(0.9);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+
     .game {
       flex: 0 0 60%;
       height: 60%;
@@ -137,7 +190,7 @@ body {
         &.lose {
           --s: 2px;
           ---s: -2px;
-          font-size: 40px;
+          font-size: var(--normal-font-size);
         }
 
         &.win {
@@ -227,66 +280,34 @@ body {
       }
     }
 
-    button {
-      all: unset;
-      position: relative;
-      font-size: min(44px, 10vh);
-      min-width: calc(min(44px, 10vh) + 0.4em);
-      padding: 0.2em 0.4em;
-      line-height: 1;
-      color: var(--color-accent);
-      fill: var(--color-accent);
-      cursor: pointer;
-      transition: color 0.2s ease;
-      display: block;
-      box-sizing: border-box;
-
-      .text {
-        position: relative;
-        display: block;
-        text-align: center;
-
-        svg {
-          width: auto;
-          height: min(32px, 7vh);
-        }
-      }
-
-      @media (hover: hover) {
-        &:hover {
-          color: var(--color-hover) !important;
-          fill: var(--color-hover) !important;
-        }
-      }
-
-      &:focus-visible:after {
-        content: '';
-        @include nineSliceBg('../img/btn-focus.png', 12, false);
-        transform-origin: center;
-        animation: focus-rect-anim 1s ease-in-out infinite;
-
-        @keyframes focus-rect-anim {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(0.9);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
-      }
-    }
-
     .score {
       position: absolute;
       top: 0;
       left: 0;
       z-index: 1;
 
-      &.negative button {
+      .increment,
+      button {
+        .sign {
+          font-family: 'Eyvindr', sans-serif;
+        }
+      }
+
+      &.negative button,
+      .increment.negative {
         color: var(--color-failure);
+      }
+
+      .increment.positive {
+        color: var(--color-success);
+      }
+
+      .increment {
+        position: absolute;
+        top: 100%;
+        right: 0.4em;
+        font-size: var(--normal-font-size);
+        @include font-shadow(2px);
       }
     }
 
@@ -378,7 +399,6 @@ body {
         padding-right: 0.3em;
       }
     }
-
 
     dialog.help {
       all: unset;
