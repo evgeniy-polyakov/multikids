@@ -14,7 +14,8 @@
     "react-dom": "^18",
     "next": "14.2.13",
     "howler": "^2.2.4",
-    "@types/howler": "^2.2.12"
+    "@types/howler": "^2.2.12",
+    "@vkontakte/vk-bridge": "^2.15.1"
   },
   "devDependencies": {
     "typescript": "^5",
