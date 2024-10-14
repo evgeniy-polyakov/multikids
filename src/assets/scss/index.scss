@@ -448,6 +448,19 @@ body {
         position: relative;
         overflow: auto;
         padding: 0 0 1em;
+
+        p {
+          flex: 0 0 100%;
+          text-align: center;
+
+          a {
+            color: inherit;
+
+            &:hover {
+              color: var(--color-hover);
+            }
+          }
+        }
       }
 
       .button-close {
