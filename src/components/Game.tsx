@@ -64,7 +64,7 @@ export function Game({newEquation, setNewEquation, input, gameModel}: {
     }
 
     return <div className="game">
-        {history.map(([e, a, r], i) =>
+        {history.slice(-10).map(([e, a, r], i) =>
             <Equation key={i} model={e} input={a} correct={r}/>)}
         {equationModel && <Equation model={equationModel} input={input}/>}
     </div>
