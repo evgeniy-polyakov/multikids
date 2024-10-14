@@ -136,7 +136,9 @@ body {
 
         svg {
           width: auto;
-          height: min(32px, 7vh);
+          height: min(31px, 7vh);
+          display: block;
+          margin-bottom: -0.03em;
         }
       }
 
