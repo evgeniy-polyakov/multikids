@@ -283,6 +283,7 @@ body {
       position: absolute;
       top: 0;
       left: 0;
+      z-index: 1;
 
       &.negative button {
         color: var(--color-failure);
@@ -371,6 +372,7 @@ body {
       right: 0;
       display: flex;
       flex-flow: row nowrap;
+      z-index: 1;
 
       .button-help {
         padding-right: 0.3em;
