@@ -24,6 +24,15 @@ body {
   user-select: none;
   overflow: hidden;
 
+  &:before {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    z-index: -1;
+    content: url("../img/btn.png") url("../img/btn-focus.png") url("../img/city-1-0.png") url("../img/city-1-1.png") url("../img/city-1-2.png") url("../img/city-2-0.png") url("../img/city-2-1.png") url("../img/city-2-2.png") url("../img/city-3-0.png") url("../img/city-3-1.png") url("../img/city-3-2.png") url("../img/city-4-0.png") url("../img/city-4-1.png") url("../img/city-4-2.png") url("../img/city-icon-1.png") url("../img/city-icon-1-locked.png") url("../img/city-icon-2.png") url("../img/city-icon-2-locked.png") url("../img/city-icon-3.png") url("../img/city-icon-3-locked.png") url("../img/city-icon-4.png") url("../img/city-icon-4-locked.png") url("../img/padlock.png")
+  }
+
   * {
     box-sizing: border-box;
 
@@ -119,7 +128,7 @@ body {
       all: unset;
       position: relative;
       font-size: var(--normal-font-size);
-      min-width: calc(var(--normal-font-size) + 0.4em);
+      min-width: calc(var(--normal-font-size) + 0.5em);
       padding: 0.2em 0.4em;
       line-height: 1;
       color: var(--color-accent);
