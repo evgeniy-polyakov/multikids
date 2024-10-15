@@ -315,16 +315,26 @@ body {
 
       .increment {
         position: absolute;
-        top: 100%;
-        width: 100%;
+        display: none;
+        top: 0;
         left: 0;
+        min-width: 100%;
         text-align: right;
-        padding: 0 0.4em;
+        padding: 0.2em 0.4em;
+        line-height: 1;
         font-size: var(--normal-font-size);
-        @include font-shadow(2px);
 
-        &.none {
-          display: none;
+        .bg {
+          content: "";
+          @include nineSliceBg("../img/btn.png", 4);
+        }
+
+        .text {
+          position: relative;
+        }
+
+        &.visible {
+          display: block;
         }
       }
     }

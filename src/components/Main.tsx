@@ -97,12 +97,12 @@ export function Main({basePath, gameModel}: {
     }
 
     return <main ref={main} tabIndex={-1}>
-        {init && <Score gameModel={gameModel} onClickItem={onClickInventoryItem}/>}
-        {init && <div className="controls">
+        <Score gameModel={gameModel} onClickItem={onClickInventoryItem}/>
+        <div className="controls">
             <Button className="button-help" onClick={() => setHelpOpen(true)}>?</Button>
             <ButtonMute selected={gameModel.getMute()}
                         setSelected={value => gameModel.setMute(value)}/>
-        </div>}
+        </div>
         <Game newEquation={newEquation} setNewEquation={setNewEquation} input={input} gameModel={gameModel}/>
         <Keyboard onClick={onInput}/>
         <Help open={helpOpen} onClose={onCloseHelpModal}/>
