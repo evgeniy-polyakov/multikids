@@ -22,6 +22,7 @@ export function Help({open, onClose}: {
         onClose();
     }}>;
         <span className="button-bg"></span>
+        <Button className="button-close" onClick={onClose} clickSFX={false}>X</Button>
         <div className="scroll">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(a => <ul key={a}>
                 {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(b => <li key={b}>{a} * {b} = {a * b}</li>)}
@@ -30,6 +31,5 @@ export function Help({open, onClose}: {
                 <a href="mailto:evgeniy.s.polyakov@gmail.com">evgeniy.s.polyakov@gmail.com</a>
             </p>
         </div>
-        <Button className="button-close" onClick={onClose} clickSFX={false}>X</Button>
     </dialog>
 }

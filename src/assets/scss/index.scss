@@ -36,7 +36,8 @@ body {
   * {
     box-sizing: border-box;
 
-    &:focus {
+    &:focus,
+    &:focus-visible {
       outline: none;
     }
   }
@@ -157,6 +158,11 @@ body {
           fill: var(--color-hover) !important;
         }
       }
+    }
+
+    button,
+    a {
+      position: relative;
 
       &:focus-visible:after {
         content: '';
@@ -175,6 +181,15 @@ body {
             transform: scale(1);
           }
         }
+      }
+    }
+
+    a {
+      &:focus-visible:after {
+        top: -8%;
+        left: -8%;
+        right: -8%;
+        bottom: -30%;
       }
     }
 
@@ -431,10 +446,6 @@ body {
     dialog.help {
       all: unset;
       box-sizing: border-box;
-      display: none;
-    }
-
-    dialog.help[open] {
       position: fixed;
       top: 0;
       left: 0;
@@ -448,6 +459,10 @@ body {
       align-items: stretch;
       border: none;
       background: none;
+
+      &:not([open]) {
+        display: none;
+      }
 
       .scroll {
         display: flex;
