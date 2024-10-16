@@ -64,15 +64,21 @@ export function Main({basePath, gameModel}: {
     }
 
     function onKeyDown(event: KeyboardEvent) {
+        const isNumber = NumberKeys.indexOf(event.code) >= 0;
+        const isDelete = event.code === "Backspace" || event.code === "Delete";
         if (event.key === "Escape") {
             main.current?.focus();
         }
         if (main.current !== document.activeElement && main.current?.contains(document.activeElement)) {
-            return;
+            if (isNumber || isDelete) {
+                main.current?.focus();
+            } else {
+                return;
+            }
         }
-        if (NumberKeys.indexOf(event.code) >= 0) {
+        if (isNumber) {
             onInput(parseInt(event.code.replace(/\D+/ig, "")));
-        } else if (event.code === "Backspace" || event.code === "Delete") {
+        } else if (isDelete) {
             onInput(ActionCode.Delete);
         } else if (event.code === "Enter" || event.code === "NumpadEnter" || event.code === "Space") {
             onInput(ActionCode.Enter);
