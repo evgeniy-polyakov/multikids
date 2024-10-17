@@ -135,7 +135,7 @@ body {
       color: var(--color-accent);
       fill: var(--color-accent);
       cursor: pointer;
-      transition: color 0.2s ease;
+      transition: color 0.2s ease, fill 0.2s ease;
       display: block;
       box-sizing: border-box;
 
@@ -355,7 +355,7 @@ body {
     }
 
     .inventory {
-      --width: min(120px, 20vh);
+      --width: max(100px, min(120px, 20vh));
       list-style: none;
       margin: 0;
       padding: 0;
@@ -378,53 +378,76 @@ body {
         height: calc(var(--width) * 1.1);
         position: relative;
 
-        button,
-        button .text {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-        }
-
-        .icon {
-          position: absolute;
-          top: 4px;
-          left: 4px;
-          right: 4px;
-          bottom: 4px;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-        }
-
-        .price {
-          position: absolute;
-          bottom: 5%;
-          left: 0;
-          width: 100%;
-          color: var(--color-white);
-          text-align: center;
-          font-size: calc(var(--width) * 0.3);
-          @include font-shadow(2px);
-        }
-
-        .padlock {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: url("../img/padlock.png") top 30% center no-repeat;
-          background-size: 40% auto;
-        }
-
-        @for $i from 1 through 4 {
-          &[data-item="#{$i}"] .icon {
-            background-image: url('../img/city-icon-#{$i}.png');
+        &[data-item] {
+          button {
+            color: var(--color-white);
           }
-          &.locked[data-item="#{$i}"] .icon {
-            background-image: url('../img/city-icon-#{$i}-locked.png');
+
+          button,
+          button .text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+          }
+
+          .icon {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+
+          .price {
+            position: absolute;
+            bottom: 5%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: calc(var(--width) * 0.3);
+            @include font-shadow(2px);
+          }
+
+          .padlock {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../img/padlock.png") top 30% center no-repeat;
+            background-size: 40% auto;
+          }
+
+          @for $i from 1 through 4 {
+            &[data-item="#{$i}"] .icon {
+              background-image: url('../img/city-icon-#{$i}.png');
+            }
+            &.locked[data-item="#{$i}"] .icon {
+              background-image: url('../img/city-icon-#{$i}-locked.png');
+            }
+          }
+        }
+
+        &.share {
+          width: calc(2 * var(--width));
+          height: auto;
+
+          button {
+            width: 100%;
+            color: var(--color-success);
+            padding-top: 0.3em;
+            padding-bottom: 0.3em;
+
+            svg {
+              display: inline-block;
+              margin-bottom: 0;
+              margin-right: 0.2em;
+            }
           }
         }
       }
