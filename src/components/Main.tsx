@@ -26,7 +26,7 @@ export function Main({basePath, gameModel}: {
         return () => {
             document.removeEventListener("keydown", onKeyDown, false);
         }
-    }, [input]);
+    }, [input, helpOpen]);
 
     useEffect(() => {
         if (!init) {
@@ -64,6 +64,9 @@ export function Main({basePath, gameModel}: {
     }
 
     function onKeyDown(event: KeyboardEvent) {
+        if (helpOpen) {
+            return;
+        }
         const isNumber = NumberKeys.indexOf(event.code) >= 0;
         const isDelete = event.code === "Backspace" || event.code === "Delete";
         if (event.key === "Escape") {
