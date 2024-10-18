@@ -5,12 +5,13 @@ import {GameModel} from "@/models/GameModel";
 import {Button} from "@/components/Button";
 import {SFX} from "@/components/SFX";
 
-export function Score({onClickItem, gameModel}: {
+export function Score({onClickItem, gameModel, inventoryOpen, setInventoryOpen}: {
     onClickItem: (item: string) => boolean,
     gameModel: GameModel,
+    inventoryOpen: boolean,
+    setInventoryOpen: (value: boolean) => void,
 }) {
 
-    const [inventoryOpen, setInventoryOpen] = useState(false);
     const ref = useClickOutside<HTMLDivElement>(() => {
         setInventoryOpen(false);
     });

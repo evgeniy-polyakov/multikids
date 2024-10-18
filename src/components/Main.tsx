@@ -19,6 +19,7 @@ export function Main({basePath, gameModel}: {
     const [newEquation, setNewEquation] = useState<NewEquation>(false);
     const [input, setInput] = useState(-1);
     const [helpOpen, setHelpOpen] = useState(false);
+    const [inventoryOpen, setInventoryOpen] = useState(false);
     const [init, setInit] = useState(false);
 
     useEffect(() => {
@@ -26,7 +27,7 @@ export function Main({basePath, gameModel}: {
         return () => {
             document.removeEventListener("keydown", onKeyDown, false);
         }
-    }, [input, helpOpen]);
+    }, [input, helpOpen, inventoryOpen]);
 
     useEffect(() => {
         if (!init) {
@@ -79,6 +80,9 @@ export function Main({basePath, gameModel}: {
                 return;
             }
         }
+        if (inventoryOpen) {
+            setInventoryOpen(false);
+        }
         if (isNumber) {
             onInput(parseInt(event.code.replace(/\D+/ig, "")));
         } else if (isDelete) {
@@ -106,7 +110,8 @@ export function Main({basePath, gameModel}: {
     }
 
     return <main ref={main} tabIndex={-1}>
-        <Score gameModel={gameModel} onClickItem={onClickInventoryItem}/>
+        <Score gameModel={gameModel} onClickItem={onClickInventoryItem}
+               inventoryOpen={inventoryOpen} setInventoryOpen={setInventoryOpen}/>
         <div className="controls">
             <Button className="button-help" onClick={() => setHelpOpen(true)}>?</Button>
             <ButtonMute selected={gameModel.getMute()}
