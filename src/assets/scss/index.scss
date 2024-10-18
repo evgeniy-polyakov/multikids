@@ -427,9 +427,11 @@ body {
               }
             }
 
-            &:hover {
-              svg [fill="#fff"] {
-                fill: var(--color-hover);
+            @media (hover: hover) {
+              &:hover {
+                svg [fill="#fff"] {
+                  fill: var(--color-hover);
+                }
               }
             }
           }
@@ -517,8 +519,10 @@ body {
             color: inherit;
             text-decoration: underline;
 
-            &:hover {
-              color: var(--color-hover);
+            @media (hover: hover) {
+              &:hover {
+                color: var(--color-hover);
+              }
             }
           }
         }
