@@ -89,7 +89,7 @@ function Inventory({open, onClick, gameModel}: {
                        className={classList({locked})}>
                 <Button onClick={() => onClick(item)}>
                     <span className="icon"></span>
-                    {locked && <span className="padlock"></span>}
+                    {locked && <PadlockIcon/>}
                     {locked && <span className="price">${gameModel.getPrice(item)}</span>}
                 </Button>
             </li>
@@ -111,5 +111,20 @@ function ShareIcon() {
         <path d="M47,22 L47,17 L50,17 L50,20 L55,20 L55,17 L58,17 L58,22 M61,22 L61,26 L64,26 L64,23 L68,23 L68,26 L66,26 L66,29 L39,29 L39,26 L37,26 L37,23 L41,23 L41,26 L44,26 L44,22 "/>
         <path d="M44,37 L47,37 L47,41 L58,41 L58,37 L61,37 L61,27 L44,27 "/>
         <path d="M42,50 L42,47 L47,47 L47,44 L58,44 L58,47 L62,47 L62,50 L65,50 L65,53 L68,53 L68,56 L48,56 L48,53 L45,53 L45,50 L42,50 Z"/>
+    </svg>;
+}
+
+function PadlockIcon() {
+    return <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="61px" viewBox="0 0 50 61">
+        <path fill="#000"
+              d="M5,28 L5,10 L8,10 L8,5 L14,5 L14,0 L36,0 L36,5 L42,5 L42,10 L45,10 L45,28 L34,28 L34,16 L28,16 L28,11 L22,11 L22,16 L16,16 L16,28 L5,28 Z"/>
+        <path fill="#000"
+              d="M0,27 L50,27 L50,61 L0,61 L0,27 Z"/>
+        <path fill="#fff"
+              d="M8,31 L8,13 L10,13 L10,8 L17,8 L17,3 L33,3 L33,8 L40,8 L40,13 L42,13 L42,31 L37,31 L37,13 L37,13 L30,13 L30,8 L20,8 L20,13 L13,13 L13,31 L8,31 Z"/>
+        <path fill="#fff"
+              d="M3,30 L47,30 L47,58 L3,58 L3,30 Z"/>
+        <path fill="#000"
+              d="M22,37 L28,37 L28,51 L22,51 L22,37 Z"/>
     </svg>;
 }
