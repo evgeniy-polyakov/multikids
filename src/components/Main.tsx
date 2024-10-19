@@ -52,7 +52,7 @@ export function Main({basePath, gameModel}: {
                 }
                 break;
             default:
-                SFX.play("shot");
+                SFX.play("shot", 0.4);
                 if (input < 0) {
                     setInput(value);
                 } else {
